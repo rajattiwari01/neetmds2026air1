@@ -3,509 +3,2300 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>🦷 NEET MDS Battle Plan Tracker</title>
+    <title>Aakershita's NEET MDS 2026 Planner</title>
     <style>
+        @import url('https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700;800;900&family=Inter:wght@300;400;500;600;700&display=swap');
+
         :root {
-            --primary: #2c3e50;
-            --secondary: #16a085;
-            --accent: #e74c3c;
-            --bg: #f8f9fa;
-            --card-bg: #ffffff;
-            --text: #333333;
+            --primary: #6C63FF;
+            --primary-dark: #5A52D5;
+            --secondary: #FF6584;
+            --accent: #00C9A7;
+            --success: #10B981;
+            --warning: #F59E0B;
+            --danger: #EF4444;
+            --bg-dark: #0F0E17;
+            --bg-card: #1A1932;
+            --bg-card-hover: #232147;
+            --text-primary: #FFFFFE;
+            --text-secondary: #A7A9BE;
+            --text-muted: #6B6D7B;
+            --gradient-1: linear-gradient(135deg, #6C63FF 0%, #FF6584 100%);
+            --gradient-2: linear-gradient(135deg, #00C9A7 0%, #6C63FF 100%);
+            --gradient-3: linear-gradient(135deg, #FF6584 0%, #F59E0B 100%);
+            --shadow: 0 10px 40px rgba(0,0,0,0.3);
+            --shadow-glow: 0 0 30px rgba(108,99,255,0.3);
+        }
+
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
         }
 
         body {
-            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
-            background-color: var(--bg);
-            color: var(--text);
-            margin: 0;
-            padding: 0;
-            line-height: 1.6;
+            font-family: 'Inter', sans-serif;
+            background: var(--bg-dark);
+            color: var(--text-primary);
+            min-height: 100vh;
+            overflow-x: hidden;
         }
 
-        header {
-            background: linear-gradient(135deg, var(--primary), #34495e);
-            color: white;
-            text-align: center;
-            padding: 2.5rem 1rem;
-            box-shadow: 0 4px 6px rgba(0,0,0,0.1);
+        body::before {
+            content: '';
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: 
+                radial-gradient(ellipse at 20% 50%, rgba(108,99,255,0.08) 0%, transparent 50%),
+                radial-gradient(ellipse at 80% 20%, rgba(255,101,132,0.06) 0%, transparent 50%),
+                radial-gradient(ellipse at 50% 80%, rgba(0,201,167,0.05) 0%, transparent 50%);
+            pointer-events: none;
+            z-index: 0;
         }
 
-        header h1 {
-            margin: 0;
-            font-size: 2.5rem;
-            letter-spacing: 1px;
+        /* Scrollbar */
+        ::-webkit-scrollbar { width: 8px; }
+        ::-webkit-scrollbar-track { background: var(--bg-dark); }
+        ::-webkit-scrollbar-thumb { background: var(--primary); border-radius: 4px; }
+        ::-webkit-scrollbar-thumb:hover { background: var(--primary-dark); }
+
+        /* Header */
+        .header {
+            position: sticky;
+            top: 0;
+            z-index: 100;
+            background: rgba(15,14,23,0.9);
+            backdrop-filter: blur(20px);
+            border-bottom: 1px solid rgba(108,99,255,0.2);
+            padding: 15px 0;
         }
 
-        header p {
-            margin: 0.5rem 0 0;
-            font-size: 1.1rem;
-            opacity: 0.9;
-        }
-
-        .container {
-            max-width: 1200px;
-            margin: 2rem auto;
-            padding: 0 1rem;
-        }
-
-        .grid {
-            display: grid;
-            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
-            gap: 1.5rem;
-            margin-bottom: 2rem;
-        }
-
-        .card {
-            background: var(--card-bg);
-            border-radius: 8px;
-            padding: 1.5rem;
-            box-shadow: 0 4px 15px rgba(0,0,0,0.05);
-            border-top: 4px solid var(--secondary);
-        }
-
-        .card h2 {
-            margin-top: 0;
-            color: var(--primary);
-            border-bottom: 2px solid #f0f2f5;
-            padding-bottom: 0.5rem;
-        }
-
-        /* Tabs setup */
-        .tabs {
+        .header-content {
+            max-width: 1400px;
+            margin: 0 auto;
+            padding: 0 30px;
             display: flex;
+            justify-content: space-between;
+            align-items: center;
+            flex-wrap: wrap;
+            gap: 15px;
+        }
+
+        .logo {
+            display: flex;
+            align-items: center;
+            gap: 12px;
+        }
+
+        .logo-icon {
+            width: 45px;
+            height: 45px;
+            background: var(--gradient-1);
+            border-radius: 12px;
+            display: flex;
+            align-items: center;
             justify-content: center;
-            margin-bottom: 2rem;
-            gap: 0.5rem;
+            font-size: 22px;
+            box-shadow: var(--shadow-glow);
+        }
+
+        .logo-text h1 {
+            font-family: 'Poppins', sans-serif;
+            font-size: 1.3rem;
+            font-weight: 700;
+            background: var(--gradient-1);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+        }
+
+        .logo-text p {
+            font-size: 0.75rem;
+            color: var(--text-secondary);
+        }
+
+        .header-stats {
+            display: flex;
+            gap: 20px;
             flex-wrap: wrap;
         }
 
-        .tab-btn {
-            background-color: #e2e8f0;
-            border: none;
-            padding: 0.75rem 1.5rem;
-            font-size: 1rem;
-            font-weight: 600;
-            cursor: pointer;
-            border-radius: 5px;
-            transition: all 0.3s ease;
+        .header-stat {
+            text-align: center;
+            padding: 8px 16px;
+            background: rgba(108,99,255,0.1);
+            border-radius: 10px;
+            border: 1px solid rgba(108,99,255,0.2);
+        }
+
+        .header-stat .value {
+            font-family: 'Poppins', sans-serif;
+            font-size: 1.2rem;
+            font-weight: 700;
             color: var(--primary);
         }
 
-        .tab-btn.active, .tab-btn:hover {
-            background-color: var(--secondary);
-            color: white;
+        .header-stat .label {
+            font-size: 0.65rem;
+            color: var(--text-muted);
+            text-transform: uppercase;
+            letter-spacing: 1px;
         }
 
+        /* Navigation */
+        .nav-tabs {
+            max-width: 1400px;
+            margin: 0 auto;
+            padding: 20px 30px;
+            display: flex;
+            gap: 8px;
+            overflow-x: auto;
+            position: relative;
+            z-index: 1;
+            flex-wrap: wrap;
+        }
+
+        .nav-tab {
+            padding: 10px 20px;
+            border-radius: 10px;
+            border: 1px solid rgba(108,99,255,0.2);
+            background: rgba(26,25,50,0.8);
+            color: var(--text-secondary);
+            cursor: pointer;
+            transition: all 0.3s;
+            font-size: 0.85rem;
+            font-weight: 500;
+            white-space: nowrap;
+        }
+
+        .nav-tab:hover {
+            background: rgba(108,99,255,0.15);
+            color: var(--text-primary);
+            border-color: rgba(108,99,255,0.4);
+        }
+
+        .nav-tab.active {
+            background: var(--gradient-1);
+            color: white;
+            border-color: transparent;
+            box-shadow: 0 5px 20px rgba(108,99,255,0.4);
+        }
+
+        /* Main Container */
+        .main-container {
+            max-width: 1400px;
+            margin: 0 auto;
+            padding: 0 30px 50px;
+            position: relative;
+            z-index: 1;
+        }
+
+        /* Dashboard Section */
+        .dashboard-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+            gap: 20px;
+            margin-bottom: 30px;
+        }
+
+        .stat-card {
+            background: var(--bg-card);
+            border-radius: 16px;
+            padding: 24px;
+            border: 1px solid rgba(108,99,255,0.1);
+            transition: all 0.3s;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .stat-card::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            height: 3px;
+        }
+
+        .stat-card:nth-child(1)::before { background: var(--gradient-1); }
+        .stat-card:nth-child(2)::before { background: var(--gradient-2); }
+        .stat-card:nth-child(3)::before { background: var(--gradient-3); }
+        .stat-card:nth-child(4)::before { background: linear-gradient(135deg, #10B981, #6C63FF); }
+
+        .stat-card:hover {
+            transform: translateY(-3px);
+            box-shadow: var(--shadow);
+            border-color: rgba(108,99,255,0.3);
+        }
+
+        .stat-card .stat-icon {
+            font-size: 2rem;
+            margin-bottom: 12px;
+        }
+
+        .stat-card .stat-value {
+            font-family: 'Poppins', sans-serif;
+            font-size: 2rem;
+            font-weight: 800;
+        }
+
+        .stat-card .stat-label {
+            color: var(--text-secondary);
+            font-size: 0.85rem;
+            margin-top: 4px;
+        }
+
+        .stat-card .stat-bar {
+            margin-top: 15px;
+            height: 6px;
+            background: rgba(255,255,255,0.1);
+            border-radius: 3px;
+            overflow: hidden;
+        }
+
+        .stat-card .stat-bar-fill {
+            height: 100%;
+            border-radius: 3px;
+            transition: width 1s ease;
+        }
+
+        /* Progress Ring */
+        .progress-ring-container {
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            margin: 30px 0;
+        }
+
+        .big-progress {
+            text-align: center;
+            background: var(--bg-card);
+            border-radius: 20px;
+            padding: 40px;
+            border: 1px solid rgba(108,99,255,0.15);
+            width: 100%;
+            max-width: 500px;
+        }
+
+        .big-progress h3 {
+            font-family: 'Poppins', sans-serif;
+            margin-bottom: 20px;
+            font-size: 1.1rem;
+            color: var(--text-secondary);
+        }
+
+        .circular-progress {
+            position: relative;
+            width: 200px;
+            height: 200px;
+            margin: 0 auto 20px;
+        }
+
+        .circular-progress svg {
+            transform: rotate(-90deg);
+        }
+
+        .circular-progress .bg {
+            fill: none;
+            stroke: rgba(108,99,255,0.15);
+            stroke-width: 12;
+        }
+
+        .circular-progress .fg {
+            fill: none;
+            stroke: url(#progressGradient);
+            stroke-width: 12;
+            stroke-linecap: round;
+            transition: stroke-dashoffset 1s ease;
+        }
+
+        .circular-progress .percentage {
+            position: absolute;
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%, -50%);
+            font-family: 'Poppins', sans-serif;
+            font-size: 2.5rem;
+            font-weight: 800;
+            background: var(--gradient-1);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+        }
+
+        /* Motivation Section */
+        .motivation-card {
+            background: var(--bg-card);
+            border-radius: 16px;
+            padding: 30px;
+            margin-bottom: 30px;
+            border: 1px solid rgba(108,99,255,0.15);
+            text-align: center;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .motivation-card::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            height: 3px;
+            background: var(--gradient-1);
+        }
+
+        .motivation-card .quote {
+            font-family: 'Poppins', sans-serif;
+            font-size: 1.2rem;
+            font-weight: 500;
+            font-style: italic;
+            color: var(--text-primary);
+            margin-bottom: 10px;
+            line-height: 1.6;
+        }
+
+        .motivation-card .author {
+            color: var(--primary);
+            font-size: 0.9rem;
+        }
+
+        .streak-badge {
+            display: inline-flex;
+            align-items: center;
+            gap: 8px;
+            background: linear-gradient(135deg, #FF6584, #F59E0B);
+            padding: 8px 20px;
+            border-radius: 50px;
+            font-weight: 600;
+            font-size: 0.9rem;
+            margin-top: 15px;
+            box-shadow: 0 5px 20px rgba(255,101,132,0.3);
+        }
+
+        /* Tab Content */
         .tab-content {
             display: none;
         }
 
         .tab-content.active {
             display: block;
+            animation: fadeIn 0.4s ease;
         }
 
-        /* Tables styling */
-        table {
-            width: 100%;
-            border-collapse: collapse;
-            margin: 1rem 0;
-            background: white;
-            border-radius: 8px;
+        @keyframes fadeIn {
+            from { opacity: 0; transform: translateY(10px); }
+            to { opacity: 1; transform: translateY(0); }
+        }
+
+        /* Month Sections */
+        .month-section {
+            margin-bottom: 30px;
+        }
+
+        .month-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding: 20px 24px;
+            background: var(--bg-card);
+            border-radius: 16px 16px 0 0;
+            border: 1px solid rgba(108,99,255,0.15);
+            border-bottom: none;
+            cursor: pointer;
+            transition: all 0.3s;
+        }
+
+        .month-header:hover {
+            background: var(--bg-card-hover);
+        }
+
+        .month-header h2 {
+            font-family: 'Poppins', sans-serif;
+            font-size: 1.3rem;
+            display: flex;
+            align-items: center;
+            gap: 10px;
+        }
+
+        .month-header .month-progress {
+            display: flex;
+            align-items: center;
+            gap: 12px;
+        }
+
+        .month-progress-bar {
+            width: 150px;
+            height: 8px;
+            background: rgba(255,255,255,0.1);
+            border-radius: 4px;
             overflow: hidden;
-            box-shadow: 0 2px 5px rgba(0,0,0,0.05);
         }
 
-        th, td {
-            padding: 0.75rem 1rem;
-            text-align: left;
-            border-bottom: 1px solid #edf2f7;
+        .month-progress-fill {
+            height: 100%;
+            background: var(--gradient-2);
+            border-radius: 4px;
+            transition: width 0.5s;
         }
 
-        th {
-            background-color: var(--primary);
+        .month-progress-text {
+            font-size: 0.85rem;
+            font-weight: 600;
+            color: var(--accent);
+            min-width: 40px;
+        }
+
+        .month-body {
+            border: 1px solid rgba(108,99,255,0.15);
+            border-top: none;
+            border-radius: 0 0 16px 16px;
+            overflow: hidden;
+        }
+
+        .month-body.collapsed {
+            display: none;
+        }
+
+        /* Week Sections */
+        .week-section {
+            border-bottom: 1px solid rgba(108,99,255,0.08);
+        }
+
+        .week-section:last-child {
+            border-bottom: none;
+        }
+
+        .week-header {
+            padding: 16px 24px;
+            background: rgba(108,99,255,0.05);
+            cursor: pointer;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            transition: background 0.3s;
+        }
+
+        .week-header:hover {
+            background: rgba(108,99,255,0.1);
+        }
+
+        .week-header h3 {
+            font-family: 'Poppins', sans-serif;
+            font-size: 1rem;
+            color: var(--primary);
+            display: flex;
+            align-items: center;
+            gap: 8px;
+        }
+
+        .week-body {
+            padding: 0;
+        }
+
+        .week-body.collapsed {
+            display: none;
+        }
+
+        /* Day Items */
+        .day-item {
+            display: flex;
+            align-items: flex-start;
+            gap: 15px;
+            padding: 16px 24px;
+            border-bottom: 1px solid rgba(255,255,255,0.03);
+            transition: background 0.3s;
+        }
+
+        .day-item:hover {
+            background: rgba(108,99,255,0.03);
+        }
+
+        .day-item:last-child {
+            border-bottom: none;
+        }
+
+        .day-item.completed {
+            background: rgba(16,185,129,0.05);
+        }
+
+        .day-checkbox {
+            display: none;
+        }
+
+        .day-checkbox-label {
+            width: 24px;
+            height: 24px;
+            min-width: 24px;
+            border: 2px solid rgba(108,99,255,0.4);
+            border-radius: 6px;
+            cursor: pointer;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            transition: all 0.3s;
+            margin-top: 2px;
+        }
+
+        .day-checkbox-label:hover {
+            border-color: var(--primary);
+            background: rgba(108,99,255,0.1);
+        }
+
+        .day-checkbox:checked + .day-checkbox-label {
+            background: var(--gradient-2);
+            border-color: transparent;
+            box-shadow: 0 3px 10px rgba(0,201,167,0.3);
+        }
+
+        .day-checkbox:checked + .day-checkbox-label::after {
+            content: '✓';
             color: white;
+            font-weight: 700;
+            font-size: 14px;
         }
 
-        tr:hover {
-            background-color: #f7fafc;
+        .day-info {
+            flex: 1;
         }
 
-        /* Interactive Checklist items */
-        .todo-list {
+        .day-date {
+            font-weight: 600;
+            font-size: 0.9rem;
+            color: var(--text-primary);
+            margin-bottom: 4px;
+            display: flex;
+            align-items: center;
+            gap: 8px;
+        }
+
+        .day-tag {
+            font-size: 0.65rem;
+            padding: 2px 8px;
+            border-radius: 4px;
+            font-weight: 600;
+            text-transform: uppercase;
+            letter-spacing: 0.5px;
+        }
+
+        .tag-subject { background: rgba(108,99,255,0.2); color: #9B94FF; }
+        .tag-revision { background: rgba(0,201,167,0.2); color: #00C9A7; }
+        .tag-test { background: rgba(255,101,132,0.2); color: #FF6584; }
+        .tag-pyq { background: rgba(245,158,11,0.2); color: #F59E0B; }
+
+        .day-topics {
+            font-size: 0.85rem;
+            color: var(--text-secondary);
+            line-height: 1.6;
+        }
+
+        .day-topics strong {
+            color: var(--primary);
+        }
+
+        .day-hours {
+            font-size: 0.75rem;
+            color: var(--text-muted);
+            margin-top: 4px;
+        }
+
+        .completed .day-info {
+            opacity: 0.6;
+        }
+
+        .completed .day-date {
+            text-decoration: line-through;
+        }
+
+        /* Resources Section */
+        .resources-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(320px, 1fr));
+            gap: 20px;
+            margin-top: 20px;
+        }
+
+        .resource-card {
+            background: var(--bg-card);
+            border-radius: 16px;
+            padding: 24px;
+            border: 1px solid rgba(108,99,255,0.15);
+            transition: all 0.3s;
+        }
+
+        .resource-card:hover {
+            transform: translateY(-3px);
+            box-shadow: var(--shadow);
+            border-color: rgba(108,99,255,0.3);
+        }
+
+        .resource-card h3 {
+            font-family: 'Poppins', sans-serif;
+            font-size: 1.1rem;
+            margin-bottom: 12px;
+            display: flex;
+            align-items: center;
+            gap: 8px;
+        }
+
+        .resource-card ul {
             list-style: none;
             padding: 0;
         }
 
-        .todo-item {
+        .resource-card li {
+            padding: 8px 0;
+            border-bottom: 1px solid rgba(255,255,255,0.05);
+            font-size: 0.85rem;
+            color: var(--text-secondary);
+        }
+
+        .resource-card li:last-child {
+            border-bottom: none;
+        }
+
+        .resource-card a {
+            color: var(--primary);
+            text-decoration: none;
+            transition: color 0.3s;
+        }
+
+        .resource-card a:hover {
+            color: var(--secondary);
+            text-decoration: underline;
+        }
+
+        /* Subject Cards */
+        .subject-overview {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+            gap: 16px;
+            margin: 20px 0;
+        }
+
+        .subject-card {
+            background: var(--bg-card);
+            border-radius: 12px;
+            padding: 20px;
+            border: 1px solid rgba(108,99,255,0.1);
+            transition: all 0.3s;
+        }
+
+        .subject-card:hover {
+            border-color: rgba(108,99,255,0.3);
+            transform: translateY(-2px);
+        }
+
+        .subject-card h4 {
+            font-family: 'Poppins', sans-serif;
+            font-size: 0.95rem;
+            margin-bottom: 8px;
+            color: var(--primary);
+        }
+
+        .subject-card .weightage {
+            font-size: 0.8rem;
+            color: var(--secondary);
+            margin-bottom: 8px;
+        }
+
+        .subject-card .sub-progress {
+            height: 4px;
+            background: rgba(255,255,255,0.1);
+            border-radius: 2px;
+            overflow: hidden;
+            margin-top: 10px;
+        }
+
+        .subject-card .sub-progress-fill {
+            height: 100%;
+            background: var(--gradient-2);
+            border-radius: 2px;
+            transition: width 0.5s;
+        }
+
+        /* Celebration Modal */
+        .celebration-overlay {
+            display: none;
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: rgba(0,0,0,0.7);
+            z-index: 1000;
+            justify-content: center;
+            align-items: center;
+            backdrop-filter: blur(5px);
+        }
+
+        .celebration-overlay.show {
+            display: flex;
+            animation: fadeIn 0.3s ease;
+        }
+
+        .celebration-content {
+            background: var(--bg-card);
+            border-radius: 24px;
+            padding: 40px;
+            text-align: center;
+            max-width: 450px;
+            width: 90%;
+            border: 2px solid rgba(108,99,255,0.3);
+            box-shadow: var(--shadow-glow);
+            animation: bounceIn 0.5s ease;
+        }
+
+        @keyframes bounceIn {
+            0% { transform: scale(0.5); opacity: 0; }
+            60% { transform: scale(1.1); }
+            100% { transform: scale(1); opacity: 1; }
+        }
+
+        .celebration-content .emoji {
+            font-size: 4rem;
+            margin-bottom: 15px;
+        }
+
+        .celebration-content h2 {
+            font-family: 'Poppins', sans-serif;
+            font-size: 1.5rem;
+            margin-bottom: 10px;
+            background: var(--gradient-1);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+        }
+
+        .celebration-content p {
+            color: var(--text-secondary);
+            margin-bottom: 20px;
+            line-height: 1.6;
+        }
+
+        .celebration-content button {
+            padding: 12px 30px;
+            background: var(--gradient-1);
+            border: none;
+            border-radius: 10px;
+            color: white;
+            font-weight: 600;
+            cursor: pointer;
+            font-size: 1rem;
+            transition: transform 0.3s;
+        }
+
+        .celebration-content button:hover {
+            transform: scale(1.05);
+        }
+
+        /* Notes Section */
+        .notes-area {
+            background: var(--bg-card);
+            border-radius: 16px;
+            padding: 24px;
+            border: 1px solid rgba(108,99,255,0.15);
+            margin-top: 20px;
+        }
+
+        .notes-area h3 {
+            font-family: 'Poppins', sans-serif;
+            margin-bottom: 15px;
+        }
+
+        .notes-area textarea {
+            width: 100%;
+            min-height: 150px;
+            background: rgba(255,255,255,0.05);
+            border: 1px solid rgba(108,99,255,0.2);
+            border-radius: 10px;
+            padding: 15px;
+            color: var(--text-primary);
+            font-family: 'Inter', sans-serif;
+            font-size: 0.9rem;
+            resize: vertical;
+            outline: none;
+            transition: border-color 0.3s;
+        }
+
+        .notes-area textarea:focus {
+            border-color: var(--primary);
+        }
+
+        .notes-area button {
+            margin-top: 10px;
+            padding: 10px 24px;
+            background: var(--gradient-1);
+            border: none;
+            border-radius: 8px;
+            color: white;
+            font-weight: 600;
+            cursor: pointer;
+            transition: transform 0.3s;
+        }
+
+        .notes-area button:hover {
+            transform: scale(1.03);
+        }
+
+        /* Today Highlight */
+        .today-highlight {
+            border-left: 3px solid var(--primary) !important;
+            background: rgba(108,99,255,0.08) !important;
+        }
+
+        /* Confetti Canvas */
+        #confettiCanvas {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            pointer-events: none;
+            z-index: 999;
+        }
+
+        /* Responsive */
+        @media (max-width: 768px) {
+            .header-content {
+                flex-direction: column;
+                text-align: center;
+            }
+            .header-stats {
+                justify-content: center;
+            }
+            .nav-tabs {
+                padding: 15px;
+            }
+            .main-container {
+                padding: 0 15px 50px;
+            }
+            .day-item {
+                padding: 12px 16px;
+            }
+            .month-header {
+                flex-direction: column;
+                gap: 10px;
+                text-align: center;
+            }
+        }
+
+        /* Syllabus analysis table */
+        .syllabus-table {
+            width: 100%;
+            border-collapse: collapse;
+            margin: 20px 0;
+        }
+
+        .syllabus-table th {
+            background: rgba(108,99,255,0.2);
+            padding: 12px 16px;
+            text-align: left;
+            font-family: 'Poppins', sans-serif;
+            font-size: 0.85rem;
+            border-bottom: 2px solid rgba(108,99,255,0.3);
+        }
+
+        .syllabus-table td {
+            padding: 10px 16px;
+            border-bottom: 1px solid rgba(255,255,255,0.05);
+            font-size: 0.85rem;
+            color: var(--text-secondary);
+        }
+
+        .syllabus-table tr:hover td {
+            background: rgba(108,99,255,0.05);
+        }
+
+        .high-yield { color: #EF4444; font-weight: 600; }
+        .medium-yield { color: #F59E0B; font-weight: 600; }
+        .low-yield { color: #10B981; font-weight: 600; }
+
+        /* Reset button */
+        .reset-btn {
+            padding: 8px 16px;
+            background: rgba(239,68,68,0.2);
+            border: 1px solid rgba(239,68,68,0.3);
+            border-radius: 8px;
+            color: #EF4444;
+            cursor: pointer;
+            font-size: 0.8rem;
+            transition: all 0.3s;
+        }
+
+        .reset-btn:hover {
+            background: rgba(239,68,68,0.3);
+        }
+
+        .section-title {
+            font-family: 'Poppins', sans-serif;
+            font-size: 1.5rem;
+            font-weight: 700;
+            margin-bottom: 20px;
             display: flex;
             align-items: center;
-            padding: 0.5rem 0;
-            border-bottom: 1px solid #edf2f7;
+            gap: 10px;
         }
 
-        .todo-item input[type="checkbox"] {
-            margin-right: 1rem;
-            transform: scale(1.2);
-            cursor: pointer;
+        .info-box {
+            background: rgba(108,99,255,0.1);
+            border: 1px solid rgba(108,99,255,0.2);
+            border-radius: 12px;
+            padding: 20px;
+            margin-bottom: 20px;
+            font-size: 0.9rem;
+            color: var(--text-secondary);
+            line-height: 1.7;
         }
 
-        /* Input Styles */
-        input[type="text"], input[type="number"], input[type="date"] {
-            width: 100%;
-            padding: 0.5rem;
-            box-sizing: border-box;
-            border: 1px solid #cbd5e0;
-            border-radius: 4px;
+        .info-box strong {
+            color: var(--primary);
         }
 
-        button.btn-add {
-            background-color: var(--secondary);
-            color: white;
-            border: none;
-            padding: 0.5rem 1rem;
-            cursor: pointer;
-            border-radius: 4px;
-            font-weight: bold;
+        .toggle-arrow {
+            transition: transform 0.3s;
+            display: inline-block;
         }
 
-        button.btn-add:hover {
-            opacity: 0.9;
-        }
-
-        .alert-box {
-            background-color: #ebf8ff;
-            border-left: 4px solid #3182ce;
-            padding: 1rem;
-            margin-bottom: 1.5rem;
-            border-radius: 0 4px 4px 0;
+        .toggle-arrow.rotated {
+            transform: rotate(180deg);
         }
     </style>
 </head>
 <body>
+    <canvas id="confettiCanvas"></canvas>
 
-    <header>
-        <h1>🦷 NEET MDS BATTLE PLAN TRACKER</h1>
-        <p>June 2026 — November 2026 | 22 Weeks | 10 Hours/Day</p>
+    <!-- Celebration Modal -->
+    <div class="celebration-overlay" id="celebrationModal">
+        <div class="celebration-content">
+            <div class="emoji" id="celebEmoji">🎉</div>
+            <h2 id="celebTitle">Amazing Work, Aakershita!</h2>
+            <p id="celebMessage">You've completed today's study goal! Every checkbox brings you closer to your dream. Keep this energy going!</p>
+            <button onclick="closeCelebration()">Continue Crushing It! 💪</button>
+        </div>
+    </div>
+
+    <!-- Header -->
+    <header class="header">
+        <div class="header-content">
+            <div class="logo">
+                <div class="logo-icon">🦷</div>
+                <div class="logo-text">
+                    <h1>Aakershita's NEET MDS 2026</h1>
+                    <p>18 Jun 2025 → 15 Nov 2025 • You've Got This! 🌟</p>
+                </div>
+            </div>
+            <div class="header-stats">
+                <div class="header-stat">
+                    <div class="value" id="daysLeft">151</div>
+                    <div class="label">Days Left</div>
+                </div>
+                <div class="header-stat">
+                    <div class="value" id="totalCompleted">0</div>
+                    <div class="label">Tasks Done</div>
+                </div>
+                <div class="header-stat">
+                    <div class="value" id="streakCount">0🔥</div>
+                    <div class="label">Day Streak</div>
+                </div>
+                <div class="header-stat">
+                    <div class="value" id="overallPercent">0%</div>
+                    <div class="label">Progress</div>
+                </div>
+            </div>
+        </div>
     </header>
 
-    <div class="container">
-        
-        <div class="alert-box">
-            <strong>💡 Golden Rule #1:</strong> Never skip PYQs — 30-40% of questions are repeats or modifications! Sleep 7 hours minimum for solid memory consolidation.
-        </div>
+    <!-- Navigation -->
+    <div class="nav-tabs">
+        <div class="nav-tab active" onclick="switchTab('dashboard')">📊 Dashboard</div>
+        <div class="nav-tab" onclick="switchTab('schedule')">📅 Full Schedule</div>
+        <div class="nav-tab" onclick="switchTab('subjects')">📚 Subjects & Syllabus</div>
+        <div class="nav-tab" onclick="switchTab('resources')">🔗 Resources & PYQs</div>
+        <div class="nav-tab" onclick="switchTab('strategy')">🎯 Strategy & Tips</div>
+        <div class="nav-tab" onclick="switchTab('notes')">📝 My Notes</div>
+        <button class="reset-btn" onclick="resetAll()">🔄 Reset All</button>
+    </div>
 
-        <div class="grid">
-            <div class="card">
-                <h2>📊 Exam Pattern Quick Check</h2>
-                <ul>
-                    <li><strong>Total Items:</strong> 240 MCQs (3 Hours)</li>
-                    <li><strong>Marking System:</strong> +4 Correct, -1 Negative</li>
-                    <li><strong>High-Yield Focus:</strong> Oral Pathology, Oral Surgery, Prosthodontics, Cons & Endo, Ortho, OMR, Pharma.</li>
-                </ul>
+    <div class="main-container">
+
+        <!-- DASHBOARD TAB -->
+        <div class="tab-content active" id="tab-dashboard">
+            <!-- Motivation -->
+            <div class="motivation-card">
+                <div class="quote" id="dailyQuote">"The expert in anything was once a beginner."</div>
+                <div class="author">— Helen Hayes</div>
+                <div class="streak-badge" id="streakBadge">🔥 Study Streak: <span id="streakDisplay">0</span> days</div>
             </div>
-            <div class="card">
-                <h2>🎯 Total Progress Milestones</h2>
-                <p>Target Cumulative Questions Solved: <strong>12,000–15,000 MCQs</strong></p>
-                <div style="background: #e2e8f0; border-radius: 10px; height: 20px; overflow: hidden;">
-                    <div id="macro-progress" style="background: var(--secondary); width: 0%; height: 100%; transition: width 0.5s ease;"></div>
+
+            <!-- Stats Grid -->
+            <div class="dashboard-grid">
+                <div class="stat-card">
+                    <div class="stat-icon">📅</div>
+                    <div class="stat-value" id="statDaysLeft">151</div>
+                    <div class="stat-label">Days Until NEET MDS 2026</div>
+                    <div class="stat-bar">
+                        <div class="stat-bar-fill" id="daysBar" style="width: 0%; background: var(--gradient-1)"></div>
+                    </div>
                 </div>
-                <p style="font-size: 0.85rem; text-align: right; margin-top: 5px;" id="progress-text">0% Complete</p>
+                <div class="stat-card">
+                    <div class="stat-icon">✅</div>
+                    <div class="stat-value" id="statTasksDone">0 / 151</div>
+                    <div class="stat-label">Study Days Completed</div>
+                    <div class="stat-bar">
+                        <div class="stat-bar-fill" id="tasksBar" style="width: 0%; background: var(--gradient-2)"></div>
+                    </div>
+                </div>
+                <div class="stat-card">
+                    <div class="stat-icon">⏱️</div>
+                    <div class="stat-value" id="statHours">0 hrs</div>
+                    <div class="stat-label">Estimated Hours Studied</div>
+                    <div class="stat-bar">
+                        <div class="stat-bar-fill" id="hoursBar" style="width: 0%; background: var(--gradient-3)"></div>
+                    </div>
+                </div>
+                <div class="stat-card">
+                    <div class="stat-icon">📖</div>
+                    <div class="stat-value" id="statSubjects">0 / 19</div>
+                    <div class="stat-label">Subjects First Read Done</div>
+                    <div class="stat-bar">
+                        <div class="stat-bar-fill" id="subjectsBar" style="width: 0%; background: linear-gradient(135deg, #10B981, #6C63FF)"></div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Big Progress Ring -->
+            <div class="progress-ring-container">
+                <div class="big-progress">
+                    <h3>Overall Preparation Progress</h3>
+                    <div class="circular-progress">
+                        <svg width="200" height="200">
+                            <defs>
+                                <linearGradient id="progressGradient" x1="0%" y1="0%" x2="100%" y2="100%">
+                                    <stop offset="0%" style="stop-color:#6C63FF"/>
+                                    <stop offset="100%" style="stop-color:#00C9A7"/>
+                                </linearGradient>
+                            </defs>
+                            <circle class="bg" cx="100" cy="100" r="85"/>
+                            <circle class="fg" id="progressCircle" cx="100" cy="100" r="85" 
+                                stroke-dasharray="534" stroke-dashoffset="534"/>
+                        </svg>
+                        <div class="percentage" id="progressPercent">0%</div>
+                    </div>
+                    <p style="color: var(--text-secondary); font-size: 0.9rem;">
+                        Every 1% is a step closer to your dream, Aakershita! 🌟
+                    </p>
+                </div>
+            </div>
+
+            <!-- Subject wise quick view -->
+            <h3 class="section-title">📚 Subject-wise Progress Snapshot</h3>
+            <div class="subject-overview" id="subjectOverview">
+                <!-- Populated by JS -->
             </div>
         </div>
 
-        <div class="tabs">
-            <button class="tab-btn active" onclick="openTab(event, 'phase1')">Phase 1: Foundation</button>
-            <button class="tab-btn" onclick="openTab(event, 'phase2')">Phase 2: Revision</button>
-            <button class="tab-btn" onclick="openTab(event, 'phase3')">Phase 3: Mock Tests</button>
-            <button class="tab-btn" onclick="openTab(event, 'highyield')">High-Yield Checklists</button>
-            <button class="tab-btn" onclick="openTab(event, 'scoretracker')">📈 Score Log Tracker</button>
-        </div>
+        <!-- SCHEDULE TAB -->
+        <div class="tab-content" id="tab-schedule">
+            <h2 class="section-title">📅 Complete Day-by-Day Study Schedule</h2>
+            <div class="info-box">
+                <strong>📌 Daily Structure (10 Hours):</strong><br>
+                🌅 Morning (4 hrs): New topic study from standard textbook + MDSF notes<br>
+                🌤️ Afternoon (3 hrs): MCQ practice + PYQ solving on that topic<br>
+                🌙 Evening (2 hrs): Revision of previous day's topic + weak areas<br>
+                🌃 Night (1 hr): Quick recap + image-based questions + mnemonics
+            </div>
 
-        <div id="phase1" class="tab-content active">
-            <div class="card">
-                <h2>📅 Phase 1: Foundation Build (Weeks 1 - 10)</h2>
-                <p><em>Focus: Complete syllabus first-time reading + notes + topic MCQs.</em></p>
-                
-                <table>
-                    <thead>
-                        <tr>
-                            <th>Timeline</th>
-                            <th>Primary Subject Topic Coverage</th>
-                            <th>Done?</th>
-                        </tr>
-                    </thead>
-                    <tbody>
-                        <tr>
-                            <td><strong>Week 1 (June 9–15)</strong></td>
-                            <td>Oral Pathology Part 1 (Developmental disturbances, Caries, Cysts, Tumors) + Gen Anatomy</td>
-                            <td><input type="checkbox" class="track-check" onchange="updateProgress()"></td>
-                        </tr>
-                        <tr>
-                            <td><strong>Week 2 (June 16–22)</strong></td>
-                            <td>Oral Pathology Part 2 (Premalignant, Bone, Epithelial path, Forensic) + Gen Pathology</td>
-                            <td><input type="checkbox" class="track-check" onchange="updateProgress()"></td>
-                        </tr>
-                        <tr>
-                            <td><strong>Week 3 (June 23–29)</strong></td>
-                            <td>Oral Medicine & Radiology Part 1 + Physiology</td>
-                            <td><input type="checkbox" class="track-check" onchange="updateProgress()"></td>
-                        </tr>
-                        <tr>
-                            <td><strong>Week 4 (June 30 – July 6)</strong></td>
-                            <td>OMR Part 2 + Pharmacology Part 1 (General, ANS, LA, Analgesics)</td>
-                            <td><input type="checkbox" class="track-check" onchange="updateProgress()"></td>
-                        </tr>
-                        <tr>
-                            <td><strong>Week 5 (July 7–13)</strong></td>
-                            <td>Oral Surgery Part 1 (LA techniques, Exodontia, Complications) + Biochemistry</td>
-                            <td><input type="checkbox" class="track-check" onchange="updateProgress()"></td>
-                        </tr>
-                        <tr>
-                            <td><strong>Week 6 (July 14–20)</strong></td>
-                            <td>Oral Surgery Part 2 (Maxillofacial trauma, TMJ, Orthognathic, Implants) + Microbiology</td>
-                            <td><input type="checkbox" class="track-check" onchange="updateProgress()"></td>
-                        </tr>
-                        <tr>
-                            <td><strong>Week 7 (July 21–27)</strong></td>
-                            <td>Prosthodontics Part 1 (Complete Dentures + RPD) + Dental Materials Part 1</td>
-                            <td><input type="checkbox" class="track-check" onchange="updateProgress()"></td>
-                        </tr>
-                        <tr>
-                            <td><strong>Week 8 (July 28 – Aug 3)</strong></td>
-                            <td>Prosthodontics Part 2 (FPD + Implants) + Dental Materials Part 2</td>
-                            <td><input type="checkbox" class="track-check" onchange="updateProgress()"></td>
-                        </tr>
-                        <tr>
-                            <td><strong>Week 9 (Aug 4–10)</strong></td>
-                            <td>Conservative Dentistry & Endodontics + General Medicine</td>
-                            <td><input type="checkbox" class="track-check" onchange="updateProgress()"></td>
-                        </tr>
-                        <tr>
-                            <td><strong>Week 10 (Aug 11–17)</strong></td>
-                            <td>Orthodontics + Pedodontics Dual Strategy</td>
-                            <td><input type="checkbox" class="track-check" onchange="updateProgress()"></td>
-                        </tr>
-                    </tbody>
-                </table>
+            <div id="scheduleContainer">
+                <!-- Populated by JS -->
             </div>
         </div>
 
-        <div id="phase2" class="tab-content">
-            <div class="card">
-                <h2>📅 Phase 2: Revision + PYQ Integration (Weeks 11 - 18)</h2>
-                <p><em>Focus: Rapid revision + all PYQs subject-wise + targeted weak area deep dives.</em></p>
-                <table>
-                    <thead>
-                        <tr>
-                            <th>Timeline</th>
-                            <th>Subject Revision & Target Milestones</th>
-                            <th>Done?</th>
-                        </tr>
-                    </thead>
-                    <tbody>
-                        <tr><td><strong>Week 11 (Aug 18–24)</strong></td><td>Periodontology Complete Core + PHD Start</td><td><input type="checkbox" class="track-check" onchange="updateProgress()"></td></tr>
-                        <tr><td><strong>Week 12 (Aug 25–31)</strong></td><td>Oral Pathology + Oral Surgery Mega-Revision</td><td><input type="checkbox" class="track-check" onchange="updateProgress()"></td></tr>
-                        <tr><td><strong>Week 13 (Sep 1–7)</strong></td><td>Oral Medicine + Prosthodontics Revision</td><td><input type="checkbox" class="track-check" onchange="updateProgress()"></td></tr>
-                        <tr><td><strong>Week 14 (Sep 8–14)</strong></td><td>Conservative Dentistry/Endo + Orthodontics Revision</td><td><input type="checkbox" class="track-check" onchange="updateProgress()"></td></tr>
-                        <tr><td><strong>Week 15 (Sep 15–21)</strong></td><td>Pedodontics + All Minor Subjects Consolidated Review</td><td><input type="checkbox" class="track-check" onchange="updateProgress()"></td></tr>
-                        <tr><td><strong>Week 16 (Sep 22–28)</strong></td><td>Integrated Revision Round 1 (Cross-subject mapping)</td><td><input type="checkbox" class="track-check" onchange="updateProgress()"></td></tr>
-                        <tr><td><strong>Week 17 (Sep 29 – Oct 5)</strong></td><td>Integrated Revision Round 2 (High-yield focus maps)</td><td><input type="checkbox" class="track-check" onchange="updateProgress()"></td></tr>
-                        <tr><td><strong>Week 18 (Oct 6–12)</strong></td><td>Final Blitz Rapid Fire Session before Test Phase</td><td><input type="checkbox" class="track-check" onchange="updateProgress()"></td></tr>
-                    </tbody>
-                </table>
+        <!-- SUBJECTS TAB -->
+        <div class="tab-content" id="tab-subjects">
+            <h2 class="section-title">📚 NEET MDS Subject-wise Syllabus & Weightage</h2>
+
+            <div class="info-box">
+                <strong>NEET MDS Pattern:</strong> 240 MCQs | 3 hours | All dental subjects covered<br>
+                <strong>Focus Strategy:</strong> High-yield subjects first → Maximum marks in minimum time<br>
+                <strong>Key Insight:</strong> ~60% questions come from just 6-7 subjects. Master those first!
             </div>
+
+            <table class="syllabus-table">
+                <thead>
+                    <tr>
+                        <th>Subject</th>
+                        <th>Approx. Questions</th>
+                        <th>Yield</th>
+                        <th>Priority</th>
+                        <th>Key Books</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr>
+                        <td><strong>Oral Pathology & Microbiology</strong></td>
+                        <td>25-30</td>
+                        <td class="high-yield">HIGH</td>
+                        <td>⭐⭐⭐⭐⭐</td>
+                        <td>Shafer's, Rajendran, Ananthnarayan</td>
+                    </tr>
+                    <tr>
+                        <td><strong>Oral Medicine & Radiology</strong></td>
+                        <td>20-25</td>
+                        <td class="high-yield">HIGH</td>
+                        <td>⭐⭐⭐⭐⭐</td>
+                        <td>Burket's, White & Pharoah</td>
+                    </tr>
+                    <tr>
+                        <td><strong>Oral Surgery</strong></td>
+                        <td>20-25</td>
+                        <td class="high-yield">HIGH</td>
+                        <td>⭐⭐⭐⭐⭐</td>
+                        <td>Kruger, Neelima Anil Malik, Peterson</td>
+                    </tr>
+                    <tr>
+                        <td><strong>Prosthodontics</strong></td>
+                        <td>20-25</td>
+                        <td class="high-yield">HIGH</td>
+                        <td>⭐⭐⭐⭐⭐</td>
+                        <td>Sheldon Winkler, GPT, Heartwell</td>
+                    </tr>
+                    <tr>
+                        <td><strong>Conservative & Endodontics</strong></td>
+                        <td>18-22</td>
+                        <td class="high-yield">HIGH</td>
+                        <td>⭐⭐⭐⭐⭐</td>
+                        <td>Sturdevant, Grossman, Ingle</td>
+                    </tr>
+                    <tr>
+                        <td><strong>Orthodontics</strong></td>
+                        <td>18-22</td>
+                        <td class="high-yield">HIGH</td>
+                        <td>⭐⭐⭐⭐⭐</td>
+                        <td>Gurkeerat Singh, Proffit, Graber</td>
+                    </tr>
+                    <tr>
+                        <td><strong>Periodontics</strong></td>
+                        <td>15-18</td>
+                        <td class="high-yield">HIGH</td>
+                        <td>⭐⭐⭐⭐</td>
+                        <td>Carranza, Glickman</td>
+                    </tr>
+                    <tr>
+                        <td><strong>Pedodontics</strong></td>
+                        <td>12-15</td>
+                        <td class="medium-yield">MEDIUM</td>
+                        <td>⭐⭐⭐⭐</td>
+                        <td>Shobha Tandon, Marwah, McDonald</td>
+                    </tr>
+                    <tr>
+                        <td><strong>Dental Anatomy & Histology</strong></td>
+                        <td>10-12</td>
+                        <td class="medium-yield">MEDIUM</td>
+                        <td>⭐⭐⭐⭐</td>
+                        <td>Wheeler's, Orban's</td>
+                    </tr>
+                    <tr>
+                        <td><strong>General Anatomy (Head & Neck)</strong></td>
+                        <td>8-10</td>
+                        <td class="medium-yield">MEDIUM</td>
+                        <td>⭐⭐⭐</td>
+                        <td>BD Chaurasia (Vol 3), Netter</td>
+                    </tr>
+                    <tr>
+                        <td><strong>General Pathology</strong></td>
+                        <td>8-10</td>
+                        <td class="medium-yield">MEDIUM</td>
+                        <td>⭐⭐⭐</td>
+                        <td>Robbins, Harsh Mohan</td>
+                    </tr>
+                    <tr>
+                        <td><strong>Pharmacology</strong></td>
+                        <td>8-10</td>
+                        <td class="medium-yield">MEDIUM</td>
+                        <td>⭐⭐⭐</td>
+                        <td>KD Tripathi, Goodman & Gilman</td>
+                    </tr>
+                    <tr>
+                        <td><strong>General Medicine</strong></td>
+                        <td>8-10</td>
+                        <td class="medium-yield">MEDIUM</td>
+                        <td>⭐⭐⭐</td>
+                        <td>Devi Shetty Notes, Harrison's basics</td>
+                    </tr>
+                    <tr>
+                        <td><strong>General Surgery</strong></td>
+                        <td>5-8</td>
+                        <td class="low-yield">LOW</td>
+                        <td>⭐⭐</td>
+                        <td>SRB, Love & Bailey basics</td>
+                    </tr>
+                    <tr>
+                        <td><strong>Dental Materials</strong></td>
+                        <td>10-12</td>
+                        <td class="medium-yield">MEDIUM</td>
+                        <td>⭐⭐⭐⭐</td>
+                        <td>Anusavice, Craig</td>
+                    </tr>
+                    <tr>
+                        <td><strong>Community Dentistry</strong></td>
+                        <td>8-10</td>
+                        <td class="medium-yield">MEDIUM</td>
+                        <td>⭐⭐⭐</td>
+                        <td>Soben Peter, Park's</td>
+                    </tr>
+                    <tr>
+                        <td><strong>General Physiology & Biochemistry</strong></td>
+                        <td>6-8</td>
+                        <td class="low-yield">LOW</td>
+                        <td>⭐⭐</td>
+                        <td>Guyton (relevant chapters), Satyanarayana</td>
+                    </tr>
+                    <tr>
+                        <td><strong>Microbiology</strong></td>
+                        <td>5-8</td>
+                        <td class="medium-yield">MEDIUM</td>
+                        <td>⭐⭐⭐</td>
+                        <td>Ananthnarayan, Jawetz</td>
+                    </tr>
+                    <tr>
+                        <td><strong>Forensic Odontology & Ethics</strong></td>
+                        <td>3-5</td>
+                        <td class="low-yield">LOW</td>
+                        <td>⭐⭐</td>
+                        <td>DCI guidelines, specific chapters</td>
+                    </tr>
+                </tbody>
+            </table>
         </div>
 
-        <div id="phase3" class="tab-content">
-            <div class="card">
-                <h2>📅 Phase 3: Final Mock Polish & Exam Prep (Weeks 19 - 23)</h2>
-                <p><em>Strategy: Alternate days testing, immediate analysis logs, absolute lock on new topics.</em></p>
-                <table>
-                    <thead>
-                        <tr>
-                            <th>Timeline</th>
-                            <th>Action Plan Checklist</th>
-                            <th>Done?</th>
-                        </tr>
-                    </thead>
-                    <tbody>
-                        <tr><td><strong>Week 19 (Oct 13–19)</strong></td><td>Mock Exams 4, 5, 6, & 7 + Weak areas revision</td><td><input type="checkbox" class="track-check" onchange="updateProgress()"></td></tr>
-                        <tr><td><strong>Week 20 (Oct 20–26)</strong></td><td>Mock Exams 8, 9, 10, & 11 + Image-based marathon maps</td><td><input type="checkbox" class="track-check" onchange="updateProgress()"></td></tr>
-                        <tr><td><strong>Week 21 (Oct 27 – Nov 2)</strong></td><td>Mock Exams 12, 13, 14, & 15 + Core final sweeps</td><td><input type="checkbox" class="track-check" onchange="updateProgress()"></td></tr>
-                        <tr><td><strong>Week 22 (Nov 3–9)</strong></td><td>Final Mock 16 + Flashcard/Table memorization grind</td><td><input type="checkbox" class="track-check" onchange="updateProgress()"></td></tr>
-                        <tr><td><strong>Week 23 (Nov 10–16)</strong></td><td><strong>🎯 EXAM WEEK:</strong> Relax, stay confident, and crush it!</td><td><input type="checkbox" class="track-check" onchange="updateProgress()"></td></tr>
-                    </tbody>
-                </table>
-            </div>
-        </div>
+        <!-- RESOURCES TAB -->
+        <div class="tab-content" id="tab-resources">
+            <h2 class="section-title">🔗 Best Resources, PYQs & Study Material</h2>
 
-        <div id="highyield" class="tab-content">
-            <div class="grid">
-                <div class="card">
-                    <h2>⭐ Oral Pathology & Surgery</h2>
-                    <ul class="todo-list">
-                        <li class="todo-item"><input type="checkbox" class="track-check" onchange="updateProgress()"> Ameloblastoma variants & IHC</li>
-                        <li class="todo-item"><input type="checkbox" class="track-check" onchange="updateProgress()"> OKC / KCOT vs Dentigerous cysts</li>
-                        <li class="todo-item"><input type="checkbox" class="track-check" onchange="updateProgress()"> SCC Histopathologic Grading</li>
-                        <li class="todo-item"><input type="checkbox" class="track-check" onchange="updateProgress()"> LA Blocks (All Nerve Techniques)</li>
-                        <li class="todo-item"><input type="checkbox" class="track-check" onchange="updateProgress()"> Le Fort Fracture Classifications</li>
+            <div class="resources-grid">
+                <div class="resource-card">
+                    <h3>📱 Must-Have Apps</h3>
+                    <ul>
+                        <li>🔹 <a href="https://www.meriters.com" target="_blank">Meriters App</a> — #1 for NEET MDS MCQs, PYQs, mock tests</li>
+                        <li>🔹 <a href="https://www.pulpapp.in" target="_blank">PULP App</a> — Topic-wise MCQs, video lectures</li>
+                        <li>🔹 <a href="https://www.dentalfry.com" target="_blank">Dental Fry</a> — Free MCQs and study notes</li>
+                        <li>🔹 <a href="https://play.google.com/store/apps/details?id=com.dental.compass" target="_blank">Dental Compass</a> — Quick revision MCQs</li>
+                        <li>🔹 <a href="https://www.marrow.com" target="_blank">Marrow (Dental)</a> — Video lectures + Qbank</li>
                     </ul>
                 </div>
-                <div class="card">
-                    <h2>⭐ Prostho, Cons & Ortho</h2>
-                    <ul class="todo-list">
-                        <li class="todo-item"><input type="checkbox" class="track-check" onchange="updateProgress()"> Kennedy Classification + Applegate Rules</li>
-                        <li class="todo-item"><input type="checkbox" class="track-check" onchange="updateProgress()"> Balanced Occlusion & Articulators</li>
-                        <li class="todo-item"><input type="checkbox" class="track-check" onchange="updateProgress()"> Access Cavities & Endodontic Rotary Files</li>
-                        <li class="todo-item"><input type="checkbox" class="track-check" onchange="updateProgress()"> Cephalometric Values (All Analyses)</li>
-                        <li class="todo-item"><input type="checkbox" class="track-check" onchange="updateProgress()"> Orthodontic Wire Metallurgy/Properties</li>
+
+                <div class="resource-card">
+                    <h3>📚 Standard Textbooks (Must Read)</h3>
+                    <ul>
+                        <li>🦷 <strong>Oral Path:</strong> Shafer's Textbook of Oral Pathology (8th Ed)</li>
+                        <li>🦷 <strong>Oral Medicine:</strong> Burket's Oral Medicine (13th Ed)</li>
+                        <li>🦷 <strong>Oral Surgery:</strong> Contemporary Oral & Maxillofacial Surgery — Peterson</li>
+                        <li>🦷 <strong>Prostho:</strong> Sheldon Winkler, Heartwell, McCracken's</li>
+                        <li>🦷 <strong>Conservative:</strong> Sturdevant's Art & Science (7th Ed)</li>
+                        <li>🦷 <strong>Endo:</strong> Grossman's, Ingle's Endodontics (7th Ed)</li>
+                        <li>🦷 <strong>Ortho:</strong> Gurkeerat Singh, Proffit's Contemporary Orthodontics</li>
+                        <li>🦷 <strong>Perio:</strong> Carranza's Clinical Periodontology (13th Ed)</li>
+                        <li>🦷 <strong>Pedo:</strong> Shobha Tandon, Marwah's Pediatric Dentistry</li>
+                        <li>🦷 <strong>Dental Materials:</strong> Phillips' Science of Dental Materials (Anusavice)</li>
+                        <li>🦷 <strong>Anatomy:</strong> BD Chaurasia Vol 3, Orban's Oral Histology</li>
+                        <li>🦷 <strong>Pharma:</strong> KD Tripathi Essentials</li>
+                    </ul>
+                </div>
+
+                <div class="resource-card">
+                    <h3>📖 Best MCQ Books</h3>
+                    <ul>
+                        <li>⭐ <strong>MDSF (MDS Falcon)</strong> — Subject-wise MCQ compilation (GOLD STANDARD)</li>
+                        <li>⭐ <strong>Dentogist MCQs</strong> — Previous year solved papers</li>
+                        <li>⭐ <strong>Cementomania</strong> — Excellent topic-wise MCQs</li>
+                        <li>⭐ <strong>AIPG MDS Entrance Guide</strong> by Sriram</li>
+                        <li>⭐ <strong>Dental Pulse</strong> — Quick revision MCQ book</li>
+                        <li>⭐ <strong>Dental Bytes</strong> — High-yield questions</li>
+                    </ul>
+                </div>
+
+                <div class="resource-card">
+                    <h3>📝 PYQ Sources (Previous Year Questions)</h3>
+                    <ul>
+                        <li>📌 <a href="https://www.meriters.com/pyq" target="_blank">Meriters PYQ Section</a> — Year-wise & topic-wise NEET MDS PYQs</li>
+                        <li>📌 <a href="https://neetmds.pulpapp.in" target="_blank">PULP PYQ Bank</a> — 2017-2024 solved papers</li>
+                        <li>📌 <a href="https://www.dentalfry.com/neet-mds-previous-year-papers" target="_blank">Dental Fry PYQs</a> — Free PYQ PDFs</li>
+                        <li>📌 <strong>NEET MDS 2018-2024 Papers</strong> — Available on Meriters & Telegram groups</li>
+                        <li>📌 <a href="https://t.me/neetmds_preparation" target="_blank">Telegram: NEET MDS Preparation</a> — PYQ discussions</li>
+                        <li>📌 <strong>Dentogist Previous Papers Book</strong> — Compiled year-wise with explanations</li>
+                        <li>📌 <a href="https://www.dentalorg.com/neet-mds-previous-year-question-papers.html" target="_blank">DentalOrg PYQ Archive</a></li>
+                    </ul>
+                </div>
+
+                <div class="resource-card">
+                    <h3>🎥 Best YouTube Channels</h3>
+                    <ul>
+                        <li>▶️ <a href="https://www.youtube.com/@DentalMastermind" target="_blank">Dental Mastermind</a> — Conceptual lectures</li>
+                        <li>▶️ <a href="https://www.youtube.com/@MDSPrep" target="_blank">MDS Prep</a> — Topic discussions</li>
+                        <li>▶️ <a href="https://www.youtube.com/@DrNachiketBhatia" target="_blank">Dr. Nachiket Bhatia</a> — Oral Surgery & Medicine</li>
+                        <li>▶️ <a href="https://www.youtube.com/@caboralpath" target="_blank">CAB Oral Pathology</a> — Oral Path lectures</li>
+                        <li>▶️ <a href="https://www.youtube.com/@SleepyClasses" target="_blank">Sleepy Classes Dental</a> — Revision sessions</li>
+                        <li>▶️ <a href="https://www.youtube.com/@PULPApp" target="_blank">PULP Official</a> — Strategy + topic lectures</li>
+                    </ul>
+                </div>
+
+                <div class="resource-card">
+                    <h3>🌐 Important Websites & Communities</h3>
+                    <ul>
+                        <li>🔗 <a href="https://natboard.edu.in" target="_blank">NBE Official (natboard.edu.in)</a> — Exam notifications</li>
+                        <li>🔗 <a href="https://www.dentalexplorer.com" target="_blank">Dental Explorer</a> — Study notes & summaries</li>
+                        <li>🔗 <a href="https://www.reddit.com/r/DentalStudents/" target="_blank">Reddit r/DentalStudents</a></li>
+                        <li>🔗 <a href="https://t.me/neetmds2025" target="_blank">Telegram Groups</a> — Discussion & material sharing</li>
+                        <li>🔗 <strong>DentalGuru.in</strong> — Concise revision notes</li>
+                        <li>🔗 <strong>Medicos PDF</strong> — Free dental textbook PDFs</li>
+                    </ul>
+                </div>
+
+                <div class="resource-card">
+                    <h3>🧪 Mock Test Platforms</h3>
+                    <ul>
+                        <li>🎯 <a href="https://www.meriters.com/test-series" target="_blank">Meriters Grand Test Series</a> — Most popular for MDS</li>
+                        <li>🎯 <a href="https://www.pulpapp.in/test-series" target="_blank">PULP Test Series</a> — Subject & full-length tests</li>
+                        <li>🎯 <strong>Dental Compass Mock Tests</strong></li>
+                        <li>🎯 <strong>PrepLadder MDS Tests</strong> (if available)</li>
+                        <li>🎯 Practice at least 1 full-length mock every week from Week 15 onwards</li>
+                    </ul>
+                </div>
+
+                <div class="resource-card">
+                    <h3>🗂️ Quick Revision Resources</h3>
+                    <ul>
+                        <li>📋 <strong>Last Minute Revision Notes</strong> — Create your own 1-pager per subject</li>
+                        <li>📋 <strong>Mnemonics Book for Dental</strong> — Essential for memorization</li>
+                        <li>📋 <strong>Image-based Question Banks</strong> — Meriters has the best collection</li>
+                        <li>📋 <strong>Classification Tables</strong> — Make your own master list</li>
+                        <li>📋 <strong>Drug Dosage Chart</strong> — Top 50 dental drugs</li>
+                        <li>📋 <strong>Anki Flashcards</strong> — Create digital flashcards for spaced repetition</li>
                     </ul>
                 </div>
             </div>
         </div>
 
-        <div id="scoretracker" class="tab-content">
-            <div class="card">
-                <h2>📈 Interactive Mock Score Log Tracker</h2>
-                <p>Log your full length mock details dynamically. Your performance entries are saved securely directly on your system browser.</p>
-                
-                <div style="background: #f7fafc; padding: 1rem; border-radius: 6px; display: grid; grid-template-columns: repeat(auto-fit, minmax(130px, 1fr)); gap: 10px; margin-bottom: 1rem;">
-                    <div>
-                        <label>Test ID/Name</label>
-                        <input type="text" id="mockName" placeholder="Mock 1">
-                    </div>
-                    <div>
-                        <label>Date</label>
-                        <input type="date" id="mockDate">
-                    </div>
-                    <div>
-                        <label>Score (/960)</label>
-                        <input type="number" id="mockScore" placeholder="Score">
-                    </div>
-                    <div>
-                        <label>Correct</label>
-                        <input type="number" id="mockCorrect" placeholder="Correct">
-                    </div>
-                    <div>
-                        <label>Wrong</label>
-                        <input type="number" id="mockWrong" placeholder="Wrong">
-                    </div>
-                    <div>
-                        <label style="display:block; margin-bottom:4px;">Action</label>
-                        <button class="btn-add" onclick="addScoreRow()">Log Test</button>
-                    </div>
+        <!-- STRATEGY TAB -->
+        <div class="tab-content" id="tab-strategy">
+            <h2 class="section-title">🎯 Complete Strategy & Battle Plan</h2>
+
+            <div class="info-box">
+                <strong>Aakershita's 151-Day Battle Plan Overview:</strong><br><br>
+                📌 <strong>Phase 1 (Weeks 1-8 | Jun 18 - Aug 12):</strong> First Reading — Cover all high-yield subjects with standard textbooks + MCQ solving alongside<br>
+                📌 <strong>Phase 2 (Weeks 9-14 | Aug 13 - Sep 23):</strong> Complete remaining subjects + Begin revision of Phase 1 subjects + PYQ solving<br>
+                📌 <strong>Phase 3 (Weeks 15-18 | Sep 24 - Oct 21):</strong> Rapid Revision + Mock Tests + PYQ marathon + Weak area targeting<br>
+                📌 <strong>Phase 4 (Weeks 19-21 | Oct 22 - Nov 15):</strong> Final Revision + Daily mocks + Only high-yield topics + Confidence building
+            </div>
+
+            <div class="resources-grid">
+                <div class="resource-card">
+                    <h3>🌅 Daily Routine Template (10 Hours)</h3>
+                    <ul>
+                        <li><strong>6:00 AM - 6:30 AM:</strong> Wake up, freshen up, quick review of yesterday's notes</li>
+                        <li><strong>6:30 AM - 10:30 AM:</strong> 📖 Deep Study Session 1 (New topic - 4 hours)</li>
+                        <li><strong>10:30 AM - 11:00 AM:</strong> Break + light snack</li>
+                        <li><strong>11:00 AM - 2:00 PM:</strong> 📝 MCQ Practice + PYQ Solving (3 hours)</li>
+                        <li><strong>2:00 PM - 3:00 PM:</strong> Lunch + Power nap (20 min max)</li>
+                        <li><strong>3:00 PM - 5:00 PM:</strong> 🔄 Revision of previous day's topics (2 hours)</li>
+                        <li><strong>5:00 PM - 5:30 PM:</strong> Break + light exercise/walk</li>
+                        <li><strong>5:30 PM - 6:30 PM:</strong> 🖼️ Image-based Qs + Mnemonics (1 hour)</li>
+                        <li><strong>7:00 PM onwards:</strong> Dinner, relax, review tomorrow's plan</li>
+                        <li><strong>Before sleep:</strong> Read classification/table summaries for 15 mins</li>
+                    </ul>
                 </div>
 
-                <table id="scoreLogTable">
-                    <thead>
-                        <tr>
-                            <th>Test Identity</th>
-                            <th>Date Tracked</th>
-                            <th>Score Achieved</th>
-                            <th>Correct Checks</th>
-                            <th>Wrong Penalties</th>
-                            <th>Clear</th>
-                        </tr>
-                    </thead>
-                    <tbody id="scoreTableBody">
-                        </tbody>
-                </table>
+                <div class="resource-card">
+                    <h3>💡 High-Yield Topics (Repeat in PYQs)</h3>
+                    <ul>
+                        <li>🔴 <strong>Oral Path:</strong> Cysts, Tumors, Premalignant lesions, Salivary gland tumors, Odontogenic tumors</li>
+                        <li>🔴 <strong>Oral Med:</strong> Vesiculobullous lesions, White lesions, TMJ disorders, Radiographic interpretations</li>
+                        <li>🔴 <strong>Oral Surgery:</strong> LA techniques, Impactions, Fractures, Suturing, Implants, Cysts</li>
+                        <li>🔴 <strong>Prostho:</strong> RPD components, Impression materials, Occlusion, Implant prosthodontics, Denture problems</li>
+                        <li>🔴 <strong>Conservative:</strong> Cavity classifications, Composites, Glass Ionomer, Pulp capping, Bleaching</li>
+                        <li>🔴 <strong>Endo:</strong> Root canal irrigants, Obturation, Working length, Instruments, Perforations</li>
+                        <li>🔴 <strong>Ortho:</strong> Cephalometrics (ALL analyses), Growth & Development, Wire properties, Appliances</li>
+                        <li>🔴 <strong>Perio:</strong> Classifications (new & old), Surgical techniques, Host modulation, Regeneration</li>
+                        <li>🔴 <strong>Pedo:</strong> Behavior management, Space maintainers, Traumatic injuries, Fluoride</li>
+                        <li>🔴 <strong>Dental Materials:</strong> Setting reactions, Properties comparison, Impression materials, Cements</li>
+                    </ul>
+                </div>
+
+                <div class="resource-card">
+                    <h3>⚡ Power Tips for NEET MDS</h3>
+                    <ul>
+                        <li>✅ Solve at least <strong>100 MCQs daily</strong> from Day 1</li>
+                        <li>✅ Mark & revise <strong>wrong answers</strong> in a separate notebook</li>
+                        <li>✅ Make <strong>tables & comparisons</strong> for similar topics</li>
+                        <li>✅ Focus on <strong>image-based questions</strong> — increasing every year</li>
+                        <li>✅ <strong>Classifications</strong> are must-know — make a master sheet</li>
+                        <li>✅ <strong>Recent advances</strong> — Check last 2-3 years' new topics</li>
+                        <li>✅ <strong>Drug doses</strong> — Top 30 dental drugs must be memorized</li>
+                        <li>✅ <strong>Mnemonics</strong> — Create your own for complex topics</li>
+                        <li>✅ <strong>Sunday = Mock test + Analysis</strong> (from Phase 3 onwards)</li>
+                        <li>✅ <strong>Never skip revision</strong> — It's more important than new learning</li>
+                    </ul>
+                </div>
+
+                <div class="resource-card">
+                    <h3>🧠 Mental Health & Exam Tips</h3>
+                    <ul>
+                        <li>🧘 Take <strong>1 half-day off per week</strong> — sustainability > burnout</li>
+                        <li>💤 Sleep <strong>7-8 hours</strong> — memory consolidation happens during sleep</li>
+                        <li>🏃 <strong>Exercise 30 min daily</strong> — even a walk helps</li>
+                        <li>🍎 <strong>Eat well</strong> — brain needs nutrition to function</li>
+                        <li>📱 <strong>Social media detox</strong> — limit to 30 min/day max</li>
+                        <li>👥 Find a <strong>study buddy</strong> for accountability</li>
+                        <li>📊 <strong>Track progress</strong> — use this planner daily!</li>
+                        <li>🎯 <strong>Exam day:</strong> Read instructions, manage time (1 min/MCQ), don't change answers</li>
+                        <li>💪 Remember: <strong>Consistency beats intensity</strong></li>
+                        <li>🌟 Aakershita, you are <strong>stronger than you think!</strong></li>
+                    </ul>
+                </div>
             </div>
         </div>
 
+        <!-- NOTES TAB -->
+        <div class="tab-content" id="tab-notes">
+            <h2 class="section-title">📝 My Personal Study Notes</h2>
+            <div class="info-box">
+                Write down important points, mnemonics, weak areas, or anything you want to remember. 
+                Everything is saved automatically in your browser!
+            </div>
+
+            <div class="notes-area">
+                <h3>📌 General Notes & Mnemonics</h3>
+                <textarea id="generalNotes" placeholder="Write your notes here... Mnemonics, key facts, important classifications..."></textarea>
+                <button onclick="saveNotes('generalNotes')">💾 Save Notes</button>
+            </div>
+
+            <div class="notes-area">
+                <h3>❌ Weak Areas & Mistakes Log</h3>
+                <textarea id="weakAreas" placeholder="Log topics you find difficult, questions you got wrong, areas needing extra revision..."></textarea>
+                <button onclick="saveNotes('weakAreas')">💾 Save Notes</button>
+            </div>
+
+            <div class="notes-area">
+                <h3>🎯 Daily Reflection & Goals</h3>
+                <textarea id="dailyReflection" placeholder="What did you accomplish today? What's tomorrow's plan? How are you feeling?"></textarea>
+                <button onclick="saveNotes('dailyReflection')">💾 Save Notes</button>
+            </div>
+
+            <div class="notes-area">
+                <h3>📊 Mock Test Analysis</h3>
+                <textarea id="mockAnalysis" placeholder="Record your mock test scores, analysis, strong/weak subjects...&#10;&#10;Format: Date | Test Name | Score | Weak Areas | Plan"></textarea>
+                <button onclick="saveNotes('mockAnalysis')">💾 Save Notes</button>
+            </div>
+        </div>
     </div>
 
     <script>
-        // Navigation Tab Switcher Logic
-        function openTab(evt, tabId) {
-            const tabcontents = document.getElementsByClassName("tab-content");
-            for (let i = 0; i < tabcontents.length; i++) {
-                tabcontents[i].classList.remove("active");
-            }
-            const tablinks = document.getElementsByClassName("tab-btn");
-            for (let i = 0; i < tablinks.length; i++) {
-                tablinks[i].classList.remove("active");
-            }
-            document.getElementById(tabId).classList.add("active");
-            evt.currentTarget.classList.add("active");
-        }
+    // ============================================================
+    // COMPLETE STUDY DATA — 151 DAYS (June 18 – November 15, 2025)
+    // ============================================================
+    
+    const studyPlan = [
+        // ===== PHASE 1: FIRST READING (Weeks 1-8) Jun 18 - Aug 12 =====
+        
+        // WEEK 1: ORAL PATHOLOGY - Part 1
+        { date: "2025-06-18", day: "Wed", subject: "Oral Pathology", topic: "Introduction to Oral Pathology • Developmental disturbances of Oral & Para-oral structures • Developmental defects of teeth (Amelogenesis Imperfecta, Dentinogenesis Imperfecta, Dentin Dysplasia)", tag: "subject", hours: 10 },
+        { date: "2025-06-19", day: "Thu", subject: "Oral Pathology", topic: "Abnormalities of teeth — number, size, shape, structure • Dens invaginatus, Dens evaginatus, Taurodontism, Fusion, Gemination, Concresence • Environmental disturbances affecting teeth", tag: "subject", hours: 10 },
+        { date: "2025-06-20", day: "Fri", subject: "Oral Pathology", topic: "Dental Caries — Etiology, Theories (Acidogenic, Proteolytic, Chelation), Histopathology of enamel & dentin caries • Classification of caries • Rampant caries, Radiation caries", tag: "subject", hours: 10 },
+        { date: "2025-06-21", day: "Sat", subject: "Oral Pathology", topic: "Diseases of Pulp & Periapical tissues — Pulpitis (acute, chronic), Pulp polyp, Pulp calcifications • Periapical pathology — Granuloma, Cyst, Abscess • Phoenix abscess", tag: "subject", hours: 10 },
+        { date: "2025-06-22", day: "Sun", subject: "Oral Pathology", topic: "Periodontal diseases — Gingivitis, Periodontitis, ANUG, Desquamative gingivitis • Gingival enlargements • Periodontal cyst • Solve 100 Oral Path PYQs (Meriters/PULP)", tag: "pyq", hours: 10 },
+        { date: "2025-06-23", day: "Mon", subject: "Oral Pathology", topic: "Bacterial infections — Tuberculosis, Syphilis, Actinomycosis, Noma • Viral infections — HSV, HPV, Herpangina, Hand Foot Mouth • HIV/AIDS oral manifestations", tag: "subject", hours: 10 },
+        { date: "2025-06-24", day: "Tue", subject: "Oral Pathology", topic: "Fungal infections — Candidiasis (all types) • Deep fungal infections — Histoplasmosis, Mucormycosis • Revision of Week 1 + MCQ practice (50 Qs)", tag: "revision", hours: 10 },
 
-        // Checklist Progress Calculations
-        function updateProgress() {
-            const checkboxes = document.querySelectorAll('.track-check');
-            let checkedCount = 0;
-            checkboxes.forEach(box => {
-                if(box.checked) checkedCount++;
+        // WEEK 2: ORAL PATHOLOGY - Part 2
+        { date: "2025-06-25", day: "Wed", subject: "Oral Pathology", topic: "Cysts of Oral Region — Classification (WHO), Odontogenic cysts — Dentigerous, OKC/KCOT, Radicular, Residual, Lateral periodontal, Glandular odontogenic cyst", tag: "subject", hours: 10 },
+        { date: "2025-06-26", day: "Thu", subject: "Oral Pathology", topic: "Non-odontogenic cysts — Nasopalatine, Nasolabial, Globulomaxillary • Pseudocysts — Aneurysmal bone cyst, Stafne's defect, Traumatic bone cyst • Soft tissue cysts — Dermoid, Thyroglossal", tag: "subject", hours: 10 },
+        { date: "2025-06-27", day: "Fri", subject: "Oral Pathology", topic: "Odontogenic Tumors — WHO Classification (latest) • Ameloblastoma (all variants), Adenomatoid odontogenic tumor, Calcifying epithelial odontogenic tumor (Pindborg), Squamous odontogenic tumor", tag: "subject", hours: 10 },
+        { date: "2025-06-28", day: "Sat", subject: "Oral Pathology", topic: "Odontogenic tumors continued — Odontoma, Ameloblastic fibroma, Cementoblastoma, Myxoma, Odontogenic fibroma • Mixed odontogenic tumors • Malignant odontogenic tumors", tag: "subject", hours: 10 },
+        { date: "2025-06-29", day: "Sun", subject: "Oral Pathology", topic: "Salivary Gland Tumors — Classification, Pleomorphic adenoma, Warthin's tumor, Mucoepidermoid carcinoma, Adenoid cystic carcinoma, Acinic cell carcinoma • PYQ practice (100 Qs)", tag: "pyq", hours: 10 },
+        { date: "2025-06-30", day: "Mon", subject: "Oral Pathology", topic: "Premalignant/Potentially Malignant Disorders — Leukoplakia, Erythroplakia, OSMF, Oral Lichen Planus, Actinic cheilitis • Epithelial dysplasia grading • Field cancerization", tag: "subject", hours: 10 },
+        { date: "2025-07-01", day: "Tue", subject: "Oral Pathology", topic: "Oral Cancer — SCC (all variants), Verrucous carcinoma, TNM staging, Grading systems (Broder's, Jakobsson, Anneroth) • Revision of Weeks 1-2 Oral Path + 80 MCQs", tag: "revision", hours: 10 },
+
+        // WEEK 3: ORAL PATHOLOGY Part 3 + MICROBIOLOGY
+        { date: "2025-07-02", day: "Wed", subject: "Oral Pathology", topic: "Bone pathology — Giant cell lesions (CGCG, PGCG), Fibrous dysplasia, Paget's disease, Cherubism, Langerhans cell histiocytosis, Osteomyelitis, Osteoradionecrosis", tag: "subject", hours: 10 },
+        { date: "2025-07-03", day: "Thu", subject: "Oral Pathology", topic: "Connective tissue tumors — Hemangioma, Lymphangioma, Fibroma, Lipoma, Neurofibroma, Schwannoma, Granular cell tumor • Melanocytic lesions • Metastatic tumors to jaw", tag: "subject", hours: 10 },
+        { date: "2025-07-04", day: "Fri", subject: "Oral Pathology", topic: "Vesiculobullous diseases — Pemphigus (all types), Pemphigoid (MMP, BP), Epidermolysis bullosa, Erythema multiforme, SJS, Dermatitis herpetiformis", tag: "subject", hours: 10 },
+        { date: "2025-07-05", day: "Sat", subject: "Oral Pathology", topic: "Immune-mediated diseases — Lupus, Scleroderma, Sjögren's syndrome, Behçet's disease • White lesions differential • Pigmented lesions • Complete Oral Path revision + 100 PYQs", tag: "pyq", hours: 10 },
+        { date: "2025-07-06", day: "Sun", subject: "Microbiology", topic: "General Microbiology — Sterilization, Disinfection, Bacterial morphology & classification • Immunology basics — Types of immunity, Hypersensitivity reactions (Types I-IV)", tag: "subject", hours: 10 },
+        { date: "2025-07-07", day: "Mon", subject: "Microbiology", topic: "Oral Microbiology — Dental plaque, Biofilm, Streptococcus mutans, Lactobacillus, Actinomyces • Periodontal microbiology — Aggregatibacter, Porphyromonas • Dental caries microbiology", tag: "subject", hours: 10 },
+        { date: "2025-07-08", day: "Tue", subject: "Microbiology", topic: "Virology relevant to dentistry — Hepatitis (B, C, D), HIV, Herpes viruses • Infection control in dentistry • Sterilization of instruments • Microbio revision + 80 MCQs", tag: "revision", hours: 10 },
+
+        // WEEK 4: ORAL MEDICINE & RADIOLOGY - Part 1
+        { date: "2025-07-09", day: "Wed", subject: "Oral Medicine", topic: "Diseases of Oral Mucosa — Recurrent aphthous stomatitis (Minor, Major, Herpetiform), Behçet's, Drug reactions • Red & white lesions comprehensive", tag: "subject", hours: 10 },
+        { date: "2025-07-10", day: "Thu", subject: "Oral Medicine", topic: "TMJ disorders — Anatomy, Internal derangement, Myofascial pain, Ankylosis, Dislocation • TMJ imaging • Occlusal splints • Facial pain — Trigeminal neuralgia, Bell's palsy, MPDS", tag: "subject", hours: 10 },
+        { date: "2025-07-11", day: "Fri", subject: "Oral Medicine", topic: "Salivary gland diseases — Sialolithiasis, Sialadenitis, Mucocele, Ranula, Sjögren's • Salivary gland imaging • Oral manifestations of systemic diseases — Diabetes, Anemia, Bleeding disorders", tag: "subject", hours: 10 },
+        { date: "2025-07-12", day: "Sat", subject: "Oral Medicine", topic: "Oral manifestations — Kidney diseases, Liver diseases, GI disorders, Pregnancy, Nutritional deficiencies • Medical emergencies in dental office • Drug interactions in dentistry", tag: "subject", hours: 10 },
+        { date: "2025-07-13", day: "Sun", subject: "Oral Radiology", topic: "Radiation physics — X-ray production, Properties, Interactions • Digital radiography — Types, Advantages • Radiographic techniques — IOPA, BW, OPG, Cephalogram, CBCT", tag: "subject", hours: 10 },
+        { date: "2025-07-14", day: "Mon", subject: "Oral Radiology", topic: "Radiographic interpretation — Periapical lesions, Cysts vs tumors, Jaw lesions • Radiolucent & radiopaque lesions differential • Advanced imaging — MRI, CT, USG, Sialography", tag: "subject", hours: 10 },
+        { date: "2025-07-15", day: "Tue", subject: "Oral Medicine & Radiology", topic: "Radiation protection, ALARA, Dosimetry • Oral Med & Rad complete revision + 100 PYQs from Meriters/Dentogist", tag: "pyq", hours: 10 },
+
+        // WEEK 5: ORAL SURGERY - Part 1
+        { date: "2025-07-16", day: "Wed", subject: "Oral Surgery", topic: "Local Anesthesia — Pharmacology of LA agents, Classification, Mechanism, Vasoconstrictors • Techniques — Infiltration, Nerve blocks (IANB, ASA, MSA, PSA, Mental, Infraorbital, Gow-Gates, Vazirani-Akinosi)", tag: "subject", hours: 10 },
+        { date: "2025-07-17", day: "Thu", subject: "Oral Surgery", topic: "LA complications — Trismus, Hematoma, Paresthesia, Needle breakage, Allergy • Armamentarium • General Anesthesia basics • Conscious sedation — N2O, IV sedation", tag: "subject", hours: 10 },
+        { date: "2025-07-18", day: "Fri", subject: "Oral Surgery", topic: "Exodontia — Indications, Contraindications, Forceps, Elevators • Principles of tooth extraction • Surgical extraction • Complications — Dry socket, Fractures, Oro-antral communication", tag: "subject", hours: 10 },
+        { date: "2025-07-19", day: "Sat", subject: "Oral Surgery", topic: "Impactions — Classification (Winter's, Pell & Gregory, George Winter), Surgical removal of impacted 3rd molars • Complications • Impacted canines management", tag: "subject", hours: 10 },
+        { date: "2025-07-20", day: "Sun", subject: "Oral Surgery", topic: "Maxillofacial Fractures — Le Fort classification, Mandibular fractures (classification, management), Zygomatic fractures, Orbital fractures • Fixation techniques — ORIF, MMF • Solve 100 PYQs", tag: "pyq", hours: 10 },
+        { date: "2025-07-21", day: "Mon", subject: "Oral Surgery", topic: "Infections of fascial spaces — Submandibular, Sublingual, Submental, Parapharyngeal, Ludwig's angina, Cavernous sinus thrombosis • Osteomyelitis • Principles of antibiotic therapy", tag: "subject", hours: 10 },
+        { date: "2025-07-22", day: "Tue", subject: "Oral Surgery", topic: "Maxillary sinus — Anatomy, OAC/OAF management • Cysts & tumors of jaw — Surgical management • Biopsy techniques • Oral Surgery revision + 80 MCQs", tag: "revision", hours: 10 },
+
+        // WEEK 6: ORAL SURGERY Part 2 + PROSTHODONTICS Part 1
+        { date: "2025-07-23", day: "Wed", subject: "Oral Surgery", topic: "TMJ surgery — Arthrocentesis, Arthroscopy, Condylectomy, TMJ replacement • Orthognathic surgery — Le Fort I, BSSO, Genioplasty • Cleft lip & palate management", tag: "subject", hours: 10 },
+        { date: "2025-07-24", day: "Thu", subject: "Oral Surgery", topic: "Dental Implants — Osseointegration, Types, Surgical protocol, Loading protocols • Bone grafting — Autogenous, Allografts, Xenografts • Sinus lift, Ridge augmentation • Complete Oral Surgery PYQ session (100 Qs)", tag: "pyq", hours: 10 },
+        { date: "2025-07-25", day: "Fri", subject: "Prosthodontics", topic: "Complete Dentures — Edentulous anatomy, Ridge classification (Atwood), Impression procedures — Primary, Secondary (Border molding), Impression materials for CD", tag: "subject", hours: 10 },
+        { date: "2025-07-26", day: "Sat", subject: "Prosthodontics", topic: "CD continued — Jaw relations, Facebow transfer, Articulators (types & classification), Teeth selection & arrangement, Try-in procedures, Balanced occlusion • Hanau's quint", tag: "subject", hours: 10 },
+        { date: "2025-07-27", day: "Sun", subject: "Prosthodontics", topic: "CD — Processing, Curing cycles, Deflasking • Denture problems — Gagging, Burning mouth, Epulis fissuratum, Denture stomatitis • Relining, Rebasing • Immediate & Overdentures", tag: "subject", hours: 10 },
+        { date: "2025-07-28", day: "Mon", subject: "Prosthodontics", topic: "Removable Partial Dentures — Kennedy's classification, Applegate's rules • RPD components — Rests, Clasps (types), Major & minor connectors, Denture base • Survey & design", tag: "subject", hours: 10 },
+        { date: "2025-07-29", day: "Tue", subject: "Prosthodontics", topic: "RPD continued — Biomechanics, Impression techniques, Framework fabrication, Altered cast technique • Revision of Prostho Week 1 + 80 MCQs", tag: "revision", hours: 10 },
+
+        // WEEK 7: PROSTHODONTICS Part 2 + CONSERVATIVE Part 1
+        { date: "2025-07-30", day: "Wed", subject: "Prosthodontics", topic: "Fixed Partial Dentures — Abutment evaluation (Ante's law, Johnston's formula), Pontic designs, Retainers, Connectors • FPD impression techniques • Cementation", tag: "subject", hours: 10 },
+        { date: "2025-07-31", day: "Thu", subject: "Prosthodontics", topic: "Occlusion — Concepts, Determinants, Centric relation vs Centric occlusion, Curve of Spee, Wilson • Articulators detailed • Facebow • Implant Prosthodontics — Types of prostheses", tag: "subject", hours: 10 },
+        { date: "2025-08-01", day: "Fri", subject: "Prosthodontics", topic: "Maxillofacial prosthetics — Obturators, Ocular, Nasal, Auricular prostheses • CAD-CAM in prosthodontics • Ceramics — Classification, Porcelain types • All Prostho PYQs (100 Qs)", tag: "pyq", hours: 10 },
+        { date: "2025-08-02", day: "Sat", subject: "Conservative Dentistry", topic: "Dental Caries — Etiology theories, Risk assessment, Caries detection methods, Minimal intervention dentistry • Cavity classification (GV Black, Mount & Hume) • Tooth preparation principles", tag: "subject", hours: 10 },
+        { date: "2025-08-03", day: "Sun", subject: "Conservative Dentistry", topic: "Restorative materials — Dental Amalgam (composition, setting, properties, manipulation), GIC (types, setting, applications), Composite resins (classification, polymerization, bonding)", tag: "subject", hours: 10 },
+        { date: "2025-08-04", day: "Mon", subject: "Conservative Dentistry", topic: "Bonding to tooth structure — Enamel & dentin bonding agents (generations), Acid etching, Smear layer concept • Direct vs Indirect restorations • Cavity liners, bases, varnishes", tag: "subject", hours: 10 },
+        { date: "2025-08-05", day: "Tue", subject: "Conservative Dentistry", topic: "Advanced restorative — Inlays, Onlays, Veneers (direct & indirect) • Tooth-colored restorations • Bleaching — Vital & non-vital, agents, techniques • Conservative revision + 80 MCQs", tag: "revision", hours: 10 },
+
+        // WEEK 8: ENDODONTICS
+        { date: "2025-08-06", day: "Wed", subject: "Endodontics", topic: "Pulp biology — Pulp anatomy, Pulp testing methods (EPT, thermal, laser Doppler) • Diagnosis of pulpal & periapical diseases • Endodontic classification systems", tag: "subject", hours: 10 },
+        { date: "2025-08-07", day: "Thu", subject: "Endodontics", topic: "Access cavity preparation — Morphology of all teeth, Working length determination (electronic, radiographic) • Biomechanical preparation — Techniques (Step-back, Crown-down, Hybrid)", tag: "subject", hours: 10 },
+        { date: "2025-08-08", day: "Fri", subject: "Endodontics", topic: "Endo instruments — Hand files (K-file, H-file, Reamer), Rotary systems (ProTaper, WaveOne, Reciproc) • Irrigation — NaOCl, EDTA, CHX, MTAD • Intracanal medicaments — Ca(OH)2", tag: "subject", hours: 10 },
+        { date: "2025-08-09", day: "Sat", subject: "Endodontics", topic: "Obturation — Techniques (Lateral condensation, Warm vertical, Thermoplasticized), Sealers, Gutta percha (composition, phases) • Post & core — Types, Fiber posts • Endo-perio lesions", tag: "subject", hours: 10 },
+        { date: "2025-08-10", day: "Sun", subject: "Endodontics", topic: "Endo surgery — Apicoectomy, Retrograde filling • Endo mishaps — Perforations, Instrument separation, Ledge formation, Overfilling • Regenerative endodontics • Solve 100 PYQs (Conservative + Endo)", tag: "pyq", hours: 10 },
+        { date: "2025-08-11", day: "Mon", subject: "Conservative & Endo", topic: "REVISION DAY — Complete Conservative & Endodontics revision using notes + 100 MCQs from Dental Pulse/MDSF", tag: "revision", hours: 10 },
+        { date: "2025-08-12", day: "Tue", subject: "Phase 1 Review", topic: "📊 PHASE 1 MID-REVIEW — Revise all subjects covered (OP, OM, OS, Prostho, Conservative, Endo) • Take a subject-wise self-test • Identify weak areas • Plan Phase 2 adjustments", tag: "test", hours: 10 },
+
+        // ===== PHASE 2: REMAINING SUBJECTS + REVISION (Weeks 9-14) Aug 13 - Sep 23 =====
+
+        // WEEK 9: ORTHODONTICS - Part 1
+        { date: "2025-08-13", day: "Wed", subject: "Orthodontics", topic: "Growth & Development — Theories of bone growth, Sutural, Cartilaginous, Periosteal/Endosteal • Cranial base growth, Maxillary & Mandibular growth • Growth prediction methods", tag: "subject", hours: 10 },
+        { date: "2025-08-14", day: "Thu", subject: "Orthodontics", topic: "Cephalometrics — Downs analysis, Steiner analysis, Tweed analysis, Wits appraisal, McNamara, Ricketts • Landmarks, planes, angles — MUST MEMORIZE ALL VALUES", tag: "subject", hours: 10 },
+        { date: "2025-08-15", day: "Fri", subject: "Orthodontics", topic: "Classification of Malocclusion — Angle's, Dewey-Anderson, Lischer, Simon, Ackerman-Proffit • Etiology of malocclusion — Local & general factors • Orthodontic diagnosis & treatment planning", tag: "subject", hours: 10 },
+        { date: "2025-08-16", day: "Sat", subject: "Orthodontics", topic: "Biomechanics — Force systems, Couple, Moment, Center of resistance, Center of rotation • Orthodontic tooth movement — Types, PDL response, Bone remodeling • Anchorage — Types & management", tag: "subject", hours: 10 },
+        { date: "2025-08-17", day: "Sun", subject: "Orthodontics", topic: "Orthodontic wires — Stainless steel, NiTi, Beta-Ti, CuNiTi properties comparison • Brackets — Types, Prescription, Self-ligating • Elastics, Springs • Solve 80 Ortho PYQs", tag: "pyq", hours: 10 },
+        { date: "2025-08-18", day: "Mon", subject: "Orthodontics", topic: "Removable appliances — Components, Hawley's, Activator, Bionator, FR of Frankel, Twin Block • Fixed appliances — Edgewise, Begg, PEA, MBT, Damon • Straight wire concept", tag: "subject", hours: 10 },
+        { date: "2025-08-19", day: "Tue", subject: "Orthodontics", topic: "Special topics — Cleft orthodontics, Orthognathic surgery planning, TADs, Clear aligners, Retention • Relapse factors • Ortho complete revision + 100 MCQs", tag: "revision", hours: 10 },
+
+        // WEEK 10: PERIODONTICS
+        { date: "2025-08-20", day: "Wed", subject: "Periodontics", topic: "Normal periodontium — Gingiva, PDL, Cementum, Alveolar bone • Classification of periodontal diseases — 1999 AAP & 2017 New Classification (MUST KNOW) • Stages & Grades", tag: "subject", hours: 10 },
+        { date: "2025-08-21", day: "Thu", subject: "Periodontics", topic: "Etiology — Dental plaque & biofilm, Calculus, Local & systemic risk factors • Pathogenesis of periodontal disease — Host-microbial interactions, Inflammatory mediators, Bone loss mechanisms", tag: "subject", hours: 10 },
+        { date: "2025-08-22", day: "Fri", subject: "Periodontics", topic: "Periodontal diagnosis — Probing, Clinical attachment level, Radiographic assessment • Treatment planning — Phase I, II, III, IV therapy • Scaling & Root planing • Occlusal therapy", tag: "subject", hours: 10 },
+        { date: "2025-08-23", day: "Sat", subject: "Periodontics", topic: "Periodontal surgery — Gingivectomy, Flap surgery (Widman, Kirkland, Neumann), Osseous surgery, Crown lengthening • Mucogingival surgery — FGG, CTG, Laterally positioned flap", tag: "subject", hours: 10 },
+        { date: "2025-08-24", day: "Sun", subject: "Periodontics", topic: "Regenerative procedures — GTR, Bone grafts (types), Growth factors, EMD, PRF/PRP • Implant periodontology — Peri-implantitis, Peri-implant mucositis • Solve 100 Perio PYQs", tag: "pyq", hours: 10 },
+        { date: "2025-08-25", day: "Mon", subject: "Periodontics", topic: "Chemotherapeutics in Perio — Chlorhexidine, Local drug delivery, Host modulation therapy (SDD), Lasers in periodontics • Perio-systemic link (Diabetes, CVD, Pregnancy)", tag: "subject", hours: 10 },
+        { date: "2025-08-26", day: "Tue", subject: "Periodontics", topic: "REVISION — Complete Periodontics + Ortho revision • 100 mixed MCQs • Make comparison charts (Old vs New classification, Flap types comparison)", tag: "revision", hours: 10 },
+
+        // WEEK 11: PEDODONTICS + DENTAL ANATOMY & HISTOLOGY
+        { date: "2025-08-27", day: "Wed", subject: "Pedodontics", topic: "Child psychology — Theories (Piaget, Erikson, Freud) • Behavior management — Non-pharmacological (Tell-Show-Do, Modeling, Desensitization) & Pharmacological (Conscious sedation, GA)", tag: "subject", hours: 10 },
+        { date: "2025-08-28", day: "Thu", subject: "Pedodontics", topic: "Development of dentition — Chronology of teeth, Primary vs permanent differences • Dental caries in children — ECC, S-ECC, Nursing bottle caries • Preventive dentistry — Fluorides (all types), Pit & fissure sealants", tag: "subject", hours: 10 },
+        { date: "2025-08-29", day: "Fri", subject: "Pedodontics", topic: "Pulp therapy in primary teeth — Indirect/Direct pulp capping, Pulpotomy (Formocresol, MTA, Biodentine, Ferric sulfate), Pulpectomy • Restorative procedures — SSC, Strip crowns, Zirconia crowns", tag: "subject", hours: 10 },
+        { date: "2025-08-30", day: "Sat", subject: "Pedodontics", topic: "Traumatic injuries — Classification (Ellis, Andreasen, WHO), Management of each type • Avulsion management protocol • Space management — Space maintainers (all types), Space regainers • Solve 80 Pedo PYQs", tag: "pyq", hours: 10 },
+        { date: "2025-08-31", day: "Sun", subject: "Dental Anatomy", topic: "Tooth morphology — Detailed anatomy of all teeth (incisors, canines, premolars, molars) — Measurements, Distinguishing features • Deciduous vs permanent teeth differences • Dental formula", tag: "subject", hours: 10 },
+        { date: "2025-09-01", day: "Mon", subject: "Oral Histology", topic: "Oral Histology — Enamel (structure, amelogenesis), Dentin (types, dentinogenesis), Pulp, Cementum, PDL, Alveolar bone • Age changes • Tooth development — Bud, Cap, Bell stages • Hertwig's epithelial root sheath", tag: "subject", hours: 10 },
+        { date: "2025-09-02", day: "Tue", subject: "Dental Anatomy & Histology", topic: "Oral Histology continued — Oral mucosa types, Salivary glands histology, TMJ histology, Bone cells & remodeling • Complete Dental Anatomy + Histology revision + 80 MCQs", tag: "revision", hours: 10 },
+
+        // WEEK 12: DENTAL MATERIALS + PHARMACOLOGY
+        { date: "2025-09-03", day: "Wed", subject: "Dental Materials", topic: "Impression materials — Classification, Alginate, ZOE, Agar, Elastomers (Polysulfide, Condensation silicone, Addition silicone, Polyether) — Composition, Setting, Properties comparison", tag: "subject", hours: 10 },
+        { date: "2025-09-04", day: "Thu", subject: "Dental Materials", topic: "Gypsum products — Types I-V, Setting reaction, Properties • Waxes — Classification, Properties • Casting — Investment materials, Lost-wax technique, Casting defects", tag: "subject", hours: 10 },
+        { date: "2025-09-05", day: "Fri", subject: "Dental Materials", topic: "Dental cements — ZnPC, GIC, Zinc polycarboxylate, Resin cements • Dental amalgam — Composition, Setting, Creep, Marginal deterioration • Dental ceramics — Classification, All-ceramic systems", tag: "subject", hours: 10 },
+        { date: "2025-09-06", day: "Sat", subject: "Dental Materials", topic: "Composites detailed — Matrix, Filler, Coupling agent, Classification, Polymerization shrinkage • Bonding agents (generations) • Dental alloys — Types, Composition • Properties review — Stress, Strain, Modulus, Hardness tests • 100 DM PYQs", tag: "pyq", hours: 10 },
+        { date: "2025-09-07", day: "Sun", subject: "Pharmacology", topic: "Analgesics — NSAIDs (Aspirin, Ibuprofen, Diclofenac, Ketorolac), Opioids, Paracetamol • Antibiotics — Penicillins, Cephalosporins, Macrolides, Metronidazole, Clindamycin, Fluoroquinolones — Doses for dental use", tag: "subject", hours: 10 },
+        { date: "2025-09-08", day: "Mon", subject: "Pharmacology", topic: "LA pharmacology detailed • Corticosteroids • Antifungals (Nystatin, Fluconazole) • Antiviral (Acyclovir) • Antihistamines • Drug interactions in dentistry • Emergency drugs • Drug doses chart", tag: "subject", hours: 10 },
+        { date: "2025-09-09", day: "Tue", subject: "Pharmacology & DM", topic: "Pharmacology — Sedatives, Muscle relaxants, Hemostatic agents • Prescriptions for dental patients • REVISION — Dental Materials + Pharmacology + 80 MCQs each", tag: "revision", hours: 10 },
+
+        // WEEK 13: GENERAL SUBJECTS (Anatomy, Pathology, Physiology, Biochemistry)
+        { date: "2025-09-10", day: "Wed", subject: "General Anatomy", topic: "Head & Neck Anatomy — Skull bones, Foramina & contents (MUST MEMORIZE), Muscles of mastication, Infratemporal fossa, Pterygopalatine fossa", tag: "subject", hours: 10 },
+        { date: "2025-09-11", day: "Thu", subject: "General Anatomy", topic: "Nerve supply — Trigeminal nerve (all divisions detailed), Facial nerve (course, branches, Bell's palsy), Glossopharyngeal, Hypoglossal, Vagus • Blood supply — Maxillary artery branches, Carotid system", tag: "subject", hours: 10 },
+        { date: "2025-09-12", day: "Fri", subject: "General Anatomy", topic: "TMJ anatomy detailed • Salivary glands anatomy • Pharynx, Larynx • Lymphatic drainage of head & neck • Fascial spaces anatomy • Cervical lymph node levels • 80 Anatomy PYQs", tag: "pyq", hours: 10 },
+        { date: "2025-09-13", day: "Sat", subject: "General Pathology", topic: "Inflammation — Acute & chronic, Chemical mediators, Granulomatous inflammation • Cell injury & adaptation — Necrosis types, Apoptosis • Healing & repair • Hemodynamic disorders — Thrombosis, Embolism, Infarction, Shock", tag: "subject", hours: 10 },
+        { date: "2025-09-14", day: "Sun", subject: "General Pathology", topic: "Neoplasia — Nomenclature, Benign vs Malignant, Carcinogenesis, Tumor markers, Grading & Staging • Immunopathology — Autoimmunity, Transplant rejection, Immunodeficiency • 80 Gen Path PYQs", tag: "pyq", hours: 10 },
+        { date: "2025-09-15", day: "Mon", subject: "Physiology & Biochem", topic: "Physiology — Blood (types, coagulation cascade, bleeding disorders), Nerve physiology (pain pathway, LA mechanism), Muscle physiology, Salivary secretion, GIT overview, Calcium metabolism", tag: "subject", hours: 10 },
+        { date: "2025-09-16", day: "Tue", subject: "Physiology & Biochem", topic: "Biochemistry — Calcium & Phosphorus metabolism, Fluoride biochemistry, Collagen synthesis, Salivary biochemistry, Vitamins (dental relevance), Iron metabolism • Revision + 60 MCQs", tag: "revision", hours: 10 },
+
+        // WEEK 14: COMMUNITY DENTISTRY + GENERAL MEDICINE & SURGERY + FIRST COMPLETE REVISION
+        { date: "2025-09-17", day: "Wed", subject: "Community Dentistry", topic: "Epidemiology of dental diseases — Indices (DMFT, DMFS, OHI-S, GI, PI, CPI, Dean's fluorosis index, CFI) — All formulas & criteria • Levels of prevention • Public health dentistry concepts", tag: "subject", hours: 10 },
+        { date: "2025-09-18", day: "Thu", subject: "Community Dentistry", topic: "Water fluoridation — Optimal levels, Defluoridation (Nalgonda technique) • National Oral Health Programme • School dental health programs • Biostatistics basics — Mean, Median, Mode, SD, p-value, Chi-square, t-test", tag: "subject", hours: 10 },
+        { date: "2025-09-19", day: "Fri", subject: "General Medicine", topic: "Diabetes mellitus — Types, Oral manifestations, Dental management • Hypertension — Classification, Dental considerations • Cardiovascular diseases — IE prophylaxis, Anticoagulant patients, Bleeding disorders", tag: "subject", hours: 10 },
+        { date: "2025-09-20", day: "Sat", subject: "General Med & Surgery", topic: "Anemias, Leukemias, Lymphomas — Oral manifestations • Liver diseases — Hepatitis, Cirrhosis • Kidney diseases — CKD, Dialysis patients • General Surgery — Wound healing, Sutures, Sterilization, Burns classification • 80 Mixed PYQs", tag: "pyq", hours: 10 },
+        { date: "2025-09-21", day: "Sun", subject: "Forensic Odontology", topic: "Forensic dentistry — Age estimation (Nolla, Demirjian, Gustafson), Sex determination, Bite mark analysis, Mass disaster victim identification • Dental records • Ethics in dentistry • DCI regulations", tag: "subject", hours: 10 },
+        { date: "2025-09-22", day: "Mon", subject: "Complete Revision", topic: "🔄 GRAND REVISION DAY 1 — Oral Pathology + Oral Medicine + Microbiology rapid revision using notes • 100 mixed PYQs from these subjects", tag: "revision", hours: 10 },
+        { date: "2025-09-23", day: "Tue", subject: "Complete Revision", topic: "🔄 GRAND REVISION DAY 2 — Oral Surgery + Prosthodontics rapid revision • 100 mixed PYQs • Identify & list top 50 weak topics across all subjects", tag: "revision", hours: 10 },
+
+        // ===== PHASE 3: RAPID REVISION + MOCKS (Weeks 15-18) Sep 24 - Oct 21 =====
+
+        // WEEK 15
+        { date: "2025-09-24", day: "Wed", subject: "Revision + MCQs", topic: "Conservative + Endodontics rapid revision • Focus on high-yield: Composites, GIC, Bonding agents, NaOCl, WL determination, Obturation techniques • 150 MCQs", tag: "revision", hours: 10 },
+        { date: "2025-09-25", day: "Thu", subject: "Revision + MCQs", topic: "Orthodontics complete rapid revision • Focus: Cephalometric values (ALL), Wire properties, Classification, Appliances, Growth theories • 150 MCQs", tag: "revision", hours: 10 },
+        { date: "2025-09-26", day: "Fri", subject: "Revision + MCQs", topic: "Periodontics complete rapid revision • Focus: New classification, Flap surgeries, GTR, Drug therapy, Indices • 150 MCQs", tag: "revision", hours: 10 },
+        { date: "2025-09-27", day: "Sat", subject: "Revision + MCQs", topic: "Pedodontics + Dental Anatomy + Histology rapid revision • Focus: Space maintainers, Pulpotomy agents, Trauma management, Tooth morphology, Amelogenesis • 150 MCQs", tag: "revision", hours: 10 },
+        { date: "2025-09-28", day: "Sun", subject: "MOCK TEST 1", topic: "📝 FULL-LENGTH MOCK TEST 1 (240 Qs, 3 hrs) — Meriters/PULP platform • Strict exam conditions • Score analysis • Subject-wise breakdown • Identify weak areas", tag: "test", hours: 10 },
+        { date: "2025-09-29", day: "Mon", subject: "Mock Analysis + Revision", topic: "Analyze Mock Test 1 — Review all wrong answers, note weak topics • Dental Materials + Pharmacology revision • 100 MCQs on weak areas identified", tag: "revision", hours: 10 },
+        { date: "2025-09-30", day: "Tue", subject: "Revision + MCQs", topic: "General subjects revision — Anatomy (foramina, nerves), Gen Path (neoplasia, inflammation), Physiology (coagulation, pain), Biochemistry • Community Dentistry indices • 150 MCQs", tag: "revision", hours: 10 },
+
+        // WEEK 16
+        { date: "2025-10-01", day: "Wed", subject: "PYQ Marathon", topic: "📝 PYQ Marathon Day 1 — NEET MDS 2018 & 2019 complete papers • Solve, analyze, note repeated topics • Cross-reference with textbook", tag: "pyq", hours: 10 },
+        { date: "2025-10-02", day: "Thu", subject: "PYQ Marathon", topic: "📝 PYQ Marathon Day 2 — NEET MDS 2020 & 2021 complete papers • Pattern analysis — Most repeated topics • Image-based questions practice", tag: "pyq", hours: 10 },
+        { date: "2025-10-03", day: "Fri", subject: "PYQ Marathon", topic: "📝 PYQ Marathon Day 3 — NEET MDS 2022 & 2023 complete papers • Note new question patterns • Recent advances questions", tag: "pyq", hours: 10 },
+        { date: "2025-10-04", day: "Sat", subject: "PYQ Marathon", topic: "📝 PYQ Marathon Day 4 — NEET MDS 2024 paper + AIPG/AIIMS previous dental papers • Compile 'Most Repeated 200 Questions' list", tag: "pyq", hours: 10 },
+        { date: "2025-10-05", day: "Sun", subject: "MOCK TEST 2", topic: "📝 FULL-LENGTH MOCK TEST 2 — Compare with Mock 1 • Target: Improve by 15-20 marks • Time management practice • Review & analysis", tag: "test", hours: 10 },
+        { date: "2025-10-06", day: "Mon", subject: "Weak Area Attack", topic: "🎯 Weak Area Day — Study ONLY your weakest 3 subjects identified from mocks • Deep revision + 200 MCQs on weak areas", tag: "revision", hours: 10 },
+        { date: "2025-10-07", day: "Tue", subject: "Revision Sprint", topic: "🔄 Oral Pathology + Oral Medicine rapid revision — Focus on image-based Qs, Classifications, Recent WHO updates • 150 MCQs", tag: "revision", hours: 10 },
+
+        // WEEK 17
+        { date: "2025-10-08", day: "Wed", subject: "Revision Sprint", topic: "🔄 Oral Surgery + Prosthodontics rapid revision — LA techniques, Fractures, Implants, RPD components, Occlusion concepts • 150 MCQs", tag: "revision", hours: 10 },
+        { date: "2025-10-09", day: "Thu", subject: "Revision Sprint", topic: "🔄 Conservative + Endo + Dental Materials — Materials properties comparison tables, Instrument systems, Bonding generations • 150 MCQs", tag: "revision", hours: 10 },
+        { date: "2025-10-10", day: "Fri", subject: "Revision Sprint", topic: "🔄 Orthodontics + Periodontics — Ceph values final review, Wire properties, Classification comparison, Surgical techniques • 150 MCQs", tag: "revision", hours: 10 },
+        { date: "2025-10-11", day: "Sat", subject: "Revision Sprint", topic: "🔄 Pedodontics + All General Subjects (Anatomy, Pathology, Pharma, Physio, Biochem, Community, Forensic) — Quick fire revision • 150 MCQs", tag: "revision", hours: 10 },
+        { date: "2025-10-12", day: "Sun", subject: "MOCK TEST 3", topic: "📝 FULL-LENGTH MOCK TEST 3 — Target: Break your previous best • Analyze timing — are you finishing in 2.5 hours? • Subject analysis", tag: "test", hours: 10 },
+        { date: "2025-10-13", day: "Mon", subject: "Mock Analysis + Images", topic: "Mock 3 analysis • IMAGE-BASED QUESTIONS marathon — Histopathology slides, Radiographs, Clinical photos, Dental materials • 100 image Qs", tag: "revision", hours: 10 },
+        { date: "2025-10-14", day: "Tue", subject: "Classifications Day", topic: "📋 CLASSIFICATIONS MARATHON — All WHO classifications, Cyst/Tumor classifications, Fracture classifications, Malocclusion, Periodontal diseases • Make master chart • 100 MCQs", tag: "revision", hours: 10 },
+
+        // WEEK 18
+        { date: "2025-10-15", day: "Wed", subject: "High Yield Revision", topic: "🔴 HIGH-YIELD Day 1 — Top 50 most repeated Oral Path topics + Top 50 Oral Medicine topics • Rapid fire MCQs (200 Qs)", tag: "revision", hours: 10 },
+        { date: "2025-10-16", day: "Thu", subject: "High Yield Revision", topic: "🔴 HIGH-YIELD Day 2 — Top 50 Surgery + Top 50 Prosthodontics topics • Rapid fire MCQs (200 Qs)", tag: "revision", hours: 10 },
+        { date: "2025-10-17", day: "Fri", subject: "High Yield Revision", topic: "🔴 HIGH-YIELD Day 3 — Top 50 Conservative/Endo + Top 50 Orthodontics topics • Rapid fire MCQs (200 Qs)", tag: "revision", hours: 10 },
+        { date: "2025-10-18", day: "Sat", subject: "High Yield Revision", topic: "🔴 HIGH-YIELD Day 4 — Top 30 each: Perio, Pedo, DM, Pharma, Anatomy, Gen Path, Community • Rapid fire MCQs (200 Qs)", tag: "revision", hours: 10 },
+        { date: "2025-10-19", day: "Sun", subject: "MOCK TEST 4", topic: "📝 FULL-LENGTH MOCK TEST 4 — This should be your best score yet! • Complete analysis • Final weak area identification", tag: "test", hours: 10 },
+        { date: "2025-10-20", day: "Mon", subject: "Weak Areas Final", topic: "🎯 FINAL WEAK AREA ATTACK — Focus entirely on your bottom 5 scoring areas from all mocks • 200 targeted MCQs", tag: "revision", hours: 10 },
+        { date: "2025-10-21", day: "Tue", subject: "PYQ Final Round", topic: "📝 PYQ FINAL ROUND — Go through your compiled 'Most Repeated 200' list • Ensure 100% accuracy on these • These WILL appear again!", tag: "pyq", hours: 10 },
+
+        // ===== PHASE 4: FINAL PHASE (Weeks 19-21+) Oct 22 - Nov 15 =====
+
+        // WEEK 19
+        { date: "2025-10-22", day: "Wed", subject: "Final Revision", topic: "🏁 FINAL PHASE — Oral Pathology complete revision in 1 day • Use your own summary notes + classification chart • 100 rapid MCQs", tag: "revision", hours: 10 },
+        { date: "2025-10-23", day: "Thu", subject: "Final Revision", topic: "🏁 Oral Medicine & Radiology complete revision • Focus: Radiographic interpretations, Medical emergencies, Drug interactions • 100 rapid MCQs", tag: "revision", hours: 10 },
+        { date: "2025-10-24", day: "Fri", subject: "Final Revision", topic: "🏁 Oral Surgery complete revision • Focus: LA, Impactions, Fractures, Implants • 100 rapid MCQs", tag: "revision", hours: 10 },
+        { date: "2025-10-25", day: "Sat", subject: "Final Revision", topic: "🏁 Prosthodontics complete revision • Focus: RPD, CD, FPD, Occlusion, Impression materials • 100 rapid MCQs", tag: "revision", hours: 10 },
+        { date: "2025-10-26", day: "Sun", subject: "MOCK TEST 5", topic: "📝 FULL-LENGTH MOCK TEST 5 — Simulate real exam conditions perfectly • No distractions • Strict 3 hrs • Aim for your target score", tag: "test", hours: 10 },
+        { date: "2025-10-27", day: "Mon", subject: "Final Revision", topic: "🏁 Conservative + Endodontics complete revision • Focus: Materials comparison, Instruments, Irrigation, Obturation • 100 rapid MCQs", tag: "revision", hours: 10 },
+        { date: "2025-10-28", day: "Tue", subject: "Final Revision", topic: "🏁 Orthodontics complete revision • Focus: Ceph values FINAL memorization, Appliances, Wires • 100 rapid MCQs", tag: "revision", hours: 10 },
+
+        // WEEK 20
+        { date: "2025-10-29", day: "Wed", subject: "Final Revision", topic: "🏁 Periodontics + Pedodontics complete revision • Focus: Classification, Surgery, Space maintainers, Pulpotomy • 100 rapid MCQs", tag: "revision", hours: 10 },
+        { date: "2025-10-30", day: "Thu", subject: "Final Revision", topic: "🏁 Dental Materials + Pharmacology + Dental Anatomy/Histology complete revision • Focus: Properties, Drug doses, Tooth morphology • 100 rapid MCQs", tag: "revision", hours: 10 },
+        { date: "2025-10-31", day: "Fri", subject: "Final Revision", topic: "🏁 All General Subjects — Anatomy, Gen Path, Physio, Biochem, Community, Forensic • Quick 1-pager revision each • 100 rapid MCQs", tag: "revision", hours: 10 },
+        { date: "2025-11-01", day: "Sat", subject: "MOCK TEST 6", topic: "📝 FULL-LENGTH MOCK TEST 6 — FINAL MOCK • This is your dress rehearsal • Analyze every wrong answer • Make final revision list", tag: "test", hours: 10 },
+        { date: "2025-11-02", day: "Sun", subject: "Mock Analysis + Mnemonics", topic: "Final mock analysis • Go through ALL mnemonics one last time • Review classification master chart • Image-based Q revision • Stay calm, you're ready!", tag: "revision", hours: 10 },
+        { date: "2025-11-03", day: "Mon", subject: "Rapid Fire Day", topic: "⚡ RAPID FIRE — 300 MCQs across all subjects • Focus on one-liner facts, drug doses, normal values, important numbers/measurements", tag: "revision", hours: 10 },
+        { date: "2025-11-04", day: "Tue", subject: "Most Repeated Topics", topic: "📌 MOST REPEATED TOPICS FINAL REVIEW — Go through your compiled 'Most Repeated 200' questions list • Ensure confidence on every single one", tag: "pyq", hours: 10 },
+
+        // WEEK 21 - FINAL WEEK
+        { date: "2025-11-05", day: "Wed", subject: "Final Week", topic: "🌟 Final Week Day 1 — Oral Path + Oral Med + Oral Surgery rapid revision (3 subjects in 1 day) • Only summary notes • 100 MCQs", tag: "revision", hours: 8 },
+        { date: "2025-11-06", day: "Thu", subject: "Final Week", topic: "🌟 Final Week Day 2 — Prostho + Conservative + Endo rapid revision • Only summary notes • 100 MCQs", tag: "revision", hours: 8 },
+        { date: "2025-11-07", day: "Fri", subject: "Final Week", topic: "🌟 Final Week Day 3 — Ortho + Perio + Pedo rapid revision • Only summary notes • 100 MCQs", tag: "revision", hours: 8 },
+        { date: "2025-11-08", day: "Sat", subject: "Final Week", topic: "🌟 Final Week Day 4 — DM + Pharma + All General subjects • Only tables, classifications, drug doses • 100 MCQs", tag: "revision", hours: 8 },
+        { date: "2025-11-09", day: "Sun", subject: "Final Week", topic: "🌟 Final Week Day 5 — LIGHT REVISION ONLY • Read your mistake notebook • Glance at classification chart • Image-based Qs • Relax in evening", tag: "revision", hours: 6 },
+        { date: "2025-11-10", day: "Mon", subject: "Final Week", topic: "🌟 Final Week Day 6 — Light revision of top 100 most repeated facts • Read mnemonics • Pack exam items • Sleep early (8 hrs minimum)", tag: "revision", hours: 4 },
+        { date: "2025-11-11", day: "Tue", subject: "Final Week", topic: "🌟 Final Week Day 7 — VERY LIGHT only • Glance at your 1-page summaries • Positive visualization • Good food, hydration • BELIEVE IN YOURSELF!", tag: "revision", hours: 3 },
+        { date: "2025-11-12", day: "Wed", subject: "Pre-Exam", topic: "🧘 PRE-EXAM Day 1 — Minimal study (2 hrs max) • Only read your own notes • Exercise, relax, meditate • Prepare documents, hall ticket, ID • Sleep by 10 PM", tag: "revision", hours: 2 },
+        { date: "2025-11-13", day: "Thu", subject: "Pre-Exam", topic: "🧘 PRE-EXAM Day 2 — NO NEW STUDY • Quick glance at classification chart • Visit exam center if possible • Pack everything • Positive affirmations • EARLY SLEEP", tag: "revision", hours: 1 },
+        { date: "2025-11-14", day: "Fri", subject: "Pre-Exam", topic: "🧘 PRE-EXAM Day 3 — REST DAY • Light walk • Read motivational quotes • Double-check all documents • Set 3 alarms • Trust your preparation 🌟", tag: "revision", hours: 1 },
+        { date: "2025-11-15", day: "Sat", subject: "🎯 EXAM DAY!", topic: "🦷 NEET MDS 2026 — YOU'VE GOT THIS AAKERSHITA! 💪🌟 • Stay calm, read every Q carefully, don't change answers, trust yourself. YOU ARE PREPARED! 🏆", tag: "test", hours: 3 },
+    ];
+
+    const motivationalQuotes = [
+        { quote: "The expert in anything was once a beginner.", author: "Helen Hayes" },
+        { quote: "Success is not final, failure is not fatal: it is the courage to continue that counts.", author: "Winston Churchill" },
+        { quote: "The only way to do great work is to love what you do.", author: "Steve Jobs" },
+        { quote: "Believe you can and you're halfway there.", author: "Theodore Roosevelt" },
+        { quote: "It does not matter how slowly you go as long as you do not stop.", author: "Confucius" },
+        { quote: "The future belongs to those who believe in the beauty of their dreams.", author: "Eleanor Roosevelt" },
+        { quote: "Aakershita, every MCQ you solve today is a step toward MDS tomorrow!", author: "Your Future Self" },
+        { quote: "Medicine is learned by the bedside and not in the classroom.", author: "William Osler" },
+        { quote: "Hard work beats talent when talent doesn't work hard.", author: "Tim Notke" },
+        { quote: "Don't watch the clock; do what it does. Keep going.", author: "Sam Levenson" },
+        { quote: "You are braver than you believe, stronger than you seem, and smarter than you think.", author: "A.A. Milne" },
+        { quote: "The pain you feel today will be the strength you feel tomorrow.", author: "Arnold Schwarzenegger" },
+        { quote: "Dream big, work hard, stay focused, and surround yourself with good people.", author: "Unknown" },
+        { quote: "Aakershita, your consistency today is building your success tomorrow!", author: "Your Study Planner" },
+        { quote: "Strive for progress, not perfection.", author: "Unknown"},
+        { quote: "The secret of getting ahead is getting started.", author: "Mark Twain" },
+        { quote: "Success usually comes to those who are too busy to be looking for it.", author: "Henry David Thoreau" },
+        { quote: "Aakershita, 151 days of dedication will give you a lifetime of pride!", author: "Your Mentor" },
+        { quote: "A year from now you will wish you had started today.", author: "Karen Lamb" },
+        { quote: "The difference between ordinary and extraordinary is that little extra.", author: "Jimmy Johnson" },
+        { quote: "You don't have to be great to start, but you have to start to be great.", author: "Zig Ziglar" },
+        { quote: "Every accomplishment starts with the decision to try.", author: "John F. Kennedy" },
+        { quote: "Your limitation—it's only your imagination.", author: "Unknown" },
+        { quote: "Push yourself, because no one else is going to do it for you.", author: "Unknown" },
+        { quote: "Aakershita, Dr. Sinha has a beautiful ring to it! Keep going! 🦷", author: "Your Dream" },
+        { quote: "Wake up with determination. Go to bed with satisfaction.", author: "Unknown" },
+        { quote: "Don't stop when you're tired. Stop when you're done.", author: "Unknown" },
+        { quote: "Difficult roads often lead to beautiful destinations.", author: "Unknown" },
+        { quote: "The best time to plant a tree was 20 years ago. The second best time is now.", author: "Chinese Proverb" },
+        { quote: "Champions keep playing until they get it right.", author: "Billie Jean King" }
+    ];
+
+    const celebrationMessages = [
+        { emoji: "🎉", title: "Incredible, Aakershita!", msg: "You've completed another study session! Every checked box is a building block of your success story!" },
+        { emoji: "🌟", title: "You're a Star!", msg: "Consistency is your superpower! Dr. Aakershita Sinha is getting closer to reality every single day!" },
+        { emoji: "💪", title: "Warrior Mode ON!", msg: "You showed up, you studied, you conquered! This is what champions do. Keep this energy flowing!" },
+        { emoji: "🔥", title: "On Fire!", msg: "Your dedication is burning bright! Each completed task is fuel for your NEET MDS success rocket!" },
+        { emoji: "🏆", title: "Champion in Making!", msg: "Winners don't skip study sessions. You just proved you're a winner, Aakershita!" },
+        { emoji: "🚀", title: "Unstoppable!", msg: "Nothing can stop someone who refuses to quit. You're that person, and today proved it!" },
+        { emoji: "👑", title: "Queen of Consistency!", msg: "Crown yourself — you earned it today! Your future patients will thank you for this dedication!" },
+        { emoji: "🎯", title: "Bullseye!", msg: "Another target hit! Your preparation is precise, focused, and powerful. NEET MDS doesn't stand a chance!" },
+        { emoji: "💎", title: "Diamond in the Making!", msg: "Pressure creates diamonds, and your hard work is shaping you into something extraordinary!" },
+        { emoji: "🌈", title: "After the Rain Comes Rainbow!", msg: "Every tough study session brings you closer to the beautiful result day. Keep believing!" }
+    ];
+
+    const subjectsList = [
+        { name: "Oral Pathology & Microbiology", short: "OP", color: "#FF6584" },
+        { name: "Oral Medicine & Radiology", short: "OMR", color: "#6C63FF" },
+        { name: "Oral & Maxillofacial Surgery", short: "OS", color: "#00C9A7" },
+        { name: "Prosthodontics", short: "Prostho", color: "#F59E0B" },
+        { name: "Conservative Dentistry", short: "Cons", color: "#10B981" },
+        { name: "Endodontics", short: "Endo", color: "#8B5CF6" },
+        { name: "Orthodontics", short: "Ortho", color: "#EC4899" },
+        { name: "Periodontics", short: "Perio", color: "#14B8A6" },
+        { name: "Pedodontics", short: "Pedo", color: "#F97316" },
+        { name: "Dental Anatomy & Histology", short: "DAH", color: "#06B6D4" },
+        { name: "Dental Materials", short: "DM", color: "#84CC16" },
+        { name: "Pharmacology", short: "Pharma", color: "#EF4444" },
+        { name: "General Anatomy (H&N)", short: "Anat", color: "#A855F7" },
+        { name: "General Pathology", short: "GPath", color: "#F43F5E" },
+        { name: "Physiology & Biochemistry", short: "Physio", color: "#0EA5E9" },
+        { name: "Community Dentistry", short: "Comm", color: "#22C55E" },
+        { name: "General Medicine", short: "GMed", color: "#E11D48" },
+        { name: "General Surgery", short: "GSurg", color: "#7C3AED" },
+        { name: "Forensic Odontology", short: "Forensic", color: "#64748B" }
+    ];
+
+    // ============================================================
+    // APP STATE & PERSISTENCE
+    // ============================================================
+
+    function loadState() {
+        try {
+            return JSON.parse(localStorage.getItem('aakershitaNEETMDS2026') || '{}');
+        } catch(e) {
+            return {};
+        }
+    }
+
+    function saveState(state) {
+        localStorage.setItem('aakershitaNEETMDS2026', JSON.stringify(state));
+    }
+
+    function getCheckedDays() {
+        const state = loadState();
+        return state.checkedDays || {};
+    }
+
+    function setDayChecked(dateStr, checked) {
+        const state = loadState();
+        if (!state.checkedDays) state.checkedDays = {};
+        state.checkedDays[dateStr] = checked;
+        saveState(state);
+    }
+
+    function saveNotes(id) {
+        const state = loadState();
+        if (!state.notes) state.notes = {};
+        state.notes[id] = document.getElementById(id).value;
+        saveState(state);
+        showToast('Notes saved! 💾');
+    }
+
+    function loadNotes() {
+        const state = loadState();
+        if (state.notes) {
+            Object.keys(state.notes).forEach(id => {
+                const el = document.getElementById(id);
+                if (el) el.value = state.notes[id];
             });
-            const percent = checkboxes.length ? Math.round((checkedCount / checkboxes.length) * 100) : 0;
-            document.getElementById('macro-progress').style.width = percent + '%';
-            document.getElementById('progress-text').innerText = percent + '% Complete';
-            
-            // Save state updates
-            const checkStates = Array.from(checkboxes).map(b => b.checked);
-            localStorage.setItem('neetMdsCheckboxes', JSON.stringify(checkStates));
         }
+    }
 
-        // Log Entries LocalStorage Handling
-        function addScoreRow() {
-            const name = document.getElementById('mockName').value || 'Mock Test';
-            const date = document.getElementById('mockDate').value || '-';
-            const score = document.getElementById('mockScore').value || '0';
-            const correct = document.getElementById('mockCorrect').value || '0';
-            const wrong = document.getElementById('mockWrong').value || '0';
+    // ============================================================
+    // TOAST NOTIFICATION
+    // ============================================================
+    function showToast(message) {
+        let toast = document.createElement('div');
+        toast.style.cssText = `
+            position: fixed; bottom: 30px; right: 30px; z-index: 2000;
+            background: linear-gradient(135deg, #6C63FF, #00C9A7);
+            color: white; padding: 15px 25px; border-radius: 12px;
+            font-weight: 600; font-size: 0.9rem;
+            box-shadow: 0 10px 30px rgba(0,0,0,0.3);
+            animation: fadeIn 0.3s ease;
+        `;
+        toast.textContent = message;
+        document.body.appendChild(toast);
+        setTimeout(() => { toast.style.opacity = '0'; toast.style.transition = 'opacity 0.3s'; }, 2000);
+        setTimeout(() => toast.remove(), 2500);
+    }
 
-            const testEntry = { name, date, score, correct, wrong };
-            let currentLogs = JSON.parse(localStorage.getItem('neetMdsScores')) || [];
-            currentLogs.push(testEntry);
-            localStorage.setItem('neetMdsScores', JSON.stringify(currentLogs));
-            
-            renderScores();
-            
-            // Reset input values
-            document.getElementById('mockName').value = '';
-            document.getElementById('mockScore').value = '';
-            document.getElementById('mockCorrect').value = '';
-            document.getElementById('mockWrong').value = '';
-        }
+    // ============================================================
+    // CONFETTI
+    // ============================================================
+    function launchConfetti() {
+        const canvas = document.getElementById('confettiCanvas');
+        const ctx = canvas.getContext('2d');
+        canvas.width = window.innerWidth;
+        canvas.height = window.innerHeight;
 
-        function removeScore(index) {
-            let currentLogs = JSON.parse(localStorage.getItem('neetMdsScores')) || [];
-            currentLogs.splice(index, 1);
-            localStorage.setItem('neetMdsScores', JSON.stringify(currentLogs));
-            renderScores();
-        }
+        const particles = [];
+        const colors = ['#6C63FF', '#FF6584', '#00C9A7', '#F59E0B', '#10B981', '#EC4899', '#8B5CF6'];
 
-        function renderScores() {
-            const tbody = document.getElementById('scoreTableBody');
-            tbody.innerHTML = '';
-            let currentLogs = JSON.parse(localStorage.getItem('neetMdsScores')) || [];
-            
-            currentLogs.forEach((log, index) => {
-                const row = `<tr>
-                    <td><strong>${log.name}</strong></td>
-                    <td>${log.date}</td>
-                    <td style="color: var(--secondary); font-weight: bold;">${log.score} / 960</td>
-                    <td style="color: green;">${log.correct}</td>
-                    <td style="color: var(--accent);">${log.wrong}</td>
-                    <td><button style="background:var(--accent); color:white; border:none; padding:3px 8px; border-radius:3px; cursor:pointer;" onclick="removeScore(${index})">X</button></td>
-                </tr>`;
-                tbody.innerHTML += row;
+        for (let i = 0; i < 150; i++) {
+            particles.push({
+                x: Math.random() * canvas.width,
+                y: Math.random() * canvas.height - canvas.height,
+                w: Math.random() * 10 + 5,
+                h: Math.random() * 6 + 3,
+                color: colors[Math.floor(Math.random() * colors.length)],
+                speed: Math.random() * 3 + 2,
+                angle: Math.random() * 360,
+                spin: Math.random() * 0.2 - 0.1,
+                drift: Math.random() * 2 - 1
             });
         }
 
-        // Initialize state on page load
-        window.onload = function() {
-            renderScores();
-            const savedChecks = JSON.parse(localStorage.getItem('neetMdsCheckboxes'));
-            if(savedChecks) {
-                const checkboxes = document.querySelectorAll('.track-check');
-                checkboxes.forEach((box, idx) => {
-                    if(savedChecks[idx] !== undefined) box.checked = savedChecks[idx];
+        let frames = 0;
+        function animate() {
+            ctx.clearRect(0, 0, canvas.width, canvas.height);
+            particles.forEach(p => {
+                ctx.save();
+                ctx.translate(p.x, p.y);
+                ctx.rotate(p.angle);
+                ctx.fillStyle = p.color;
+                ctx.fillRect(-p.w/2, -p.h/2, p.w, p.h);
+                ctx.restore();
+                p.y += p.speed;
+                p.x += p.drift;
+                p.angle += p.spin;
+            });
+            frames++;
+            if (frames < 180) requestAnimationFrame(animate);
+            else ctx.clearRect(0, 0, canvas.width, canvas.height);
+        }
+        animate();
+    }
+
+    // ============================================================
+    // CELEBRATION
+    // ============================================================
+    function showCelebration() {
+        const c = celebrationMessages[Math.floor(Math.random() * celebrationMessages.length)];
+        document.getElementById('celebEmoji').textContent = c.emoji;
+        document.getElementById('celebTitle').textContent = c.title;
+        document.getElementById('celebMessage').textContent = c.msg;
+        document.getElementById('celebrationModal').classList.add('show');
+        launchConfetti();
+    }
+
+    function closeCelebration() {
+        document.getElementById('celebrationModal').classList.remove('show');
+    }
+
+    // ============================================================
+    // BUILD SCHEDULE
+    // ============================================================
+    function buildSchedule() {
+        const container = document.getElementById('scheduleContainer');
+        container.innerHTML = '';
+
+        const months = {};
+        studyPlan.forEach((item, idx) => {
+            const d = new Date(item.date);
+            const monthKey = d.getFullYear() + '-' + String(d.getMonth()+1).padStart(2,'0');
+            const monthName = d.toLocaleDateString('en-US', { month: 'long', year: 'numeric' });
+            if (!months[monthKey]) months[monthKey] = { name: monthName, weeks: {}, items: [] };
+
+            const weekNum = Math.floor(idx / 7) + 1;
+            const weekKey = 'Week ' + weekNum;
+            if (!months[monthKey].weeks[weekKey]) months[monthKey].weeks[weekKey] = [];
+            months[monthKey].weeks[weekKey].push({ ...item, index: idx });
+            months[monthKey].items.push(idx);
+        });
+
+        const checkedDays = getCheckedDays();
+
+        Object.keys(months).forEach((monthKey, mIdx) => {
+            const month = months[monthKey];
+            const monthId = 'month-' + monthKey;
+
+            const checkedInMonth = month.items.filter(i => checkedDays[studyPlan[i].date]).length;
+            const totalInMonth = month.items.length;
+            const monthPercent = totalInMonth > 0 ? Math.round((checkedInMonth / totalInMonth) * 100) : 0;
+
+            const monthEmojis = ['🌱', '☀️', '🍂', '🌅', '🎯', '🏆'];
+            const monthEmoji = monthEmojis[mIdx] || '📅';
+
+            let monthHTML = `
+                <div class="month-section">
+                    <div class="month-header" onclick="toggleSection('${monthId}')">
+                        <h2>${monthEmoji} ${month.name}</h2>
+                        <div class="month-progress">
+                            <div class="month-progress-bar">
+                                <div class="month-progress-fill" style="width: ${monthPercent}%"></div>
+                            </div>
+                            <div class="month-progress-text">${monthPercent}%</div>
+                            <span class="toggle-arrow" id="arrow-${monthId}">▼</span>
+                        </div>
+                    </div>
+                    <div class="month-body" id="${monthId}">
+            `;
+
+            Object.keys(month.weeks).forEach(weekKey => {
+                const weekItems = month.weeks[weekKey];
+                const weekId = monthId + '-' + weekKey.replace(/\s/g, '');
+                const weekChecked = weekItems.filter(i => checkedDays[i.date]).length;
+                const weekTotal = weekItems.length;
+
+                monthHTML += `
+                    <div class="week-section">
+                        <div class="week-header" onclick="toggleSection('${weekId}')">
+                            <h3>📌 ${weekKey} — ${weekItems[0].subject} ${weekChecked === weekTotal ? '✅' : ''}</h3>
+                            <div style="display:flex;align-items:center;gap:10px;">
+                                <span style="font-size:0.8rem;color:var(--text-muted)">${weekChecked}/${weekTotal}</span>
+                                <span class="toggle-arrow" id="arrow-${weekId}">▼</span>
+                            </div>
+                        </div>
+                        <div class="week-body" id="${weekId}">
+                `;
+
+                weekItems.forEach(item => {
+                    const isChecked = checkedDays[item.date] ? true : false;
+                    const d = new Date(item.date);
+                    const dateStr = d.toLocaleDateString('en-US', { weekday: 'short', month: 'short', day: 'numeric' });
+
+                    const today = new Date();
+                    today.setHours(0,0,0,0);
+                    const itemDate = new Date(item.date);
+                    itemDate.setHours(0,0,0,0);
+                    const isToday = today.getTime() === itemDate.getTime();
+
+                    let tagClass = 'tag-subject';
+                    let tagText = 'NEW TOPIC';
+                    if (item.tag === 'revision') { tagClass = 'tag-revision'; tagText = 'REVISION'; }
+                    else if (item.tag === 'test') { tagClass = 'tag-test'; tagText = 'MOCK TEST'; }
+                    else if (item.tag === 'pyq') { tagClass = 'tag-pyq'; tagText = 'PYQ PRACTICE'; }
+
+                    monthHTML += `
+                        <div class="day-item ${isChecked ? 'completed' : ''} ${isToday ? 'today-highlight' : ''}" id="day-${item.date}">
+                            <input type="checkbox" class="day-checkbox" id="cb-${item.date}" 
+                                ${isChecked ? 'checked' : ''} 
+                                onchange="toggleDay('${item.date}', this.checked)">
+                            <label class="day-checkbox-label" for="cb-${item.date}"></label>
+                            <div class="day-info">
+                                <div class="day-date">
+                                    ${isToday ? '📍 TODAY — ' : ''}${dateStr} (Day ${item.index + 1}/151)
+                                    <span class="day-tag ${tagClass}">${tagText}</span>
+                                </div>
+                                <div class="day-topics">
+                                    <strong>${item.subject}:</strong> ${item.topic}
+                                </div>
+                                <div class="day-hours">⏱️ Target: ${item.hours} hours study</div>
+                            </div>
+                        </div>
+                    `;
                 });
-                updateProgress();
+
+                monthHTML += '</div></div>';
+            });
+
+            monthHTML += '</div></div>';
+            container.innerHTML += monthHTML;
+        });
+    }
+
+    function toggleSection(id) {
+        const el = document.getElementById(id);
+        const arrow = document.getElementById('arrow-' + id);
+        if (el) {
+            el.classList.toggle('collapsed');
+            if (arrow) arrow.classList.toggle('rotated');
+        }
+    }
+
+    function toggleDay(dateStr, checked) {
+        setDayChecked(dateStr, checked);
+        const dayEl = document.getElementById('day-' + dateStr);
+        if (dayEl) {
+            if (checked) {
+                dayEl.classList.add('completed');
+                // Random chance to show celebration (every 3rd check or so)
+                const checkedCount = Object.values(getCheckedDays()).filter(v => v).length;
+                if (checkedCount % 3 === 0 || checkedCount === 1) {
+                    setTimeout(showCelebration, 300);
+                } else {
+                    showToast('✅ Great job, Aakershita! Task completed!');
+                }
+            } else {
+                dayEl.classList.remove('completed');
             }
         }
+        updateAllStats();
+    }
+
+    // ============================================================
+    // UPDATE STATS
+    // ============================================================
+    function updateAllStats() {
+        const checkedDays = getCheckedDays();
+        const totalChecked = Object.values(checkedDays).filter(v => v).length;
+        const totalDays = studyPlan.length;
+        const percent = Math.round((totalChecked / totalDays) * 100);
+
+        // Header stats
+        const today = new Date();
+        const examDate = new Date('2025-11-15');
+        const daysLeft = Math.max(0, Math.ceil((examDate - today) / (1000 * 60 * 60 * 24)));
+
+        document.getElementById('daysLeft').textContent = daysLeft;
+        document.getElementById('statDaysLeft').textContent = daysLeft;
+        document.getElementById('totalCompleted').textContent = totalChecked;
+        document.getElementById('overallPercent').textContent = percent + '%';
+        document.getElementById('statTasksDone').textContent = totalChecked + ' / ' + totalDays;
+        document.getElementById('progressPercent').textContent = percent + '%';
+
+        // Hours
+        const hoursStudied = totalChecked * 10; // Approximate
+        document.getElementById('statHours').textContent = hoursStudied + ' hrs';
+
+        // Progress bars
+        const daysElapsed = Math.ceil((today - new Date('2025-06-18')) / (1000 * 60 * 60 * 24));
+        const daysPercent = Math.min(100, Math.max(0, Math.round((daysElapsed / 151) * 100)));
+        document.getElementById('daysBar').style.width = daysPercent + '%';
+        document.getElementById('tasksBar').style.width = percent + '%';
+        document.getElementById('hoursBar').style.width = Math.min(100, Math.round((hoursStudied / 1510) * 100)) + '%';
+
+        // Subject progress
+        const subjectDays = {};
+        studyPlan.forEach((item, idx) => {
+            const sub = item.subject;
+            if (!subjectDays[sub]) subjectDays[sub] = { total: 0, done: 0 };
+            subjectDays[sub].total++;
+            if (checkedDays[item.date]) subjectDays[sub].done++;
+        });
+
+        let subjectsCompleted = 0;
+        subjectsList.forEach(s => {
+            const key = Object.keys(subjectDays).find(k => k.includes(s.short) || s.name.includes(k) || k.includes(s.name.split(' ')[0]));
+            if (key && subjectDays[key] && subjectDays[key].done === subjectDays[key].total && subjectDays[key].total > 0) {
+                subjectsCompleted++;
+            }
+        });
+        document.getElementById('statSubjects').textContent = subjectsCompleted + ' / 19';
+        document.getElementById('subjectsBar').style.width = Math.round((subjectsCompleted / 19) * 100) + '%';
+
+        // Circular progress
+        const circumference = 2 * Math.PI * 85;
+        const offset = circumference - (percent / 100) * circumference;
+        document.getElementById('progressCircle').setAttribute('stroke-dashoffset', offset);
+
+        // Streak calculation
+        let streak = 0;
+        const todayStr = today.toISOString().split('T')[0];
+        for (let i = studyPlan.length - 1; i >= 0; i--) {
+            const planDate = new Date(studyPlan[i].date);
+            if (planDate > today) continue;
+            if (checkedDays[studyPlan[i].date]) {
+                streak++;
+            } else {
+                // Only break if this date is before today
+                if (planDate < today) break;
+            }
+        }
+
+        // Recalculate streak from today backwards properly
+        streak = 0;
+        let checkDate = new Date(today);
+        checkDate.setHours(0,0,0,0);
+        
+        while(true) {
+            const dateStr = checkDate.toISOString().split('T')[0];
+            const planItem = studyPlan.find(p => p.date === dateStr);
+            if (!planItem) {
+                checkDate.setDate(checkDate.getDate() - 1);
+                if (checkDate < new Date('2025-06-18')) break;
+                continue;
+            }
+            if (checkedDays[dateStr]) {
+                streak++;
+                checkDate.setDate(checkDate.getDate() - 1);
+            } else {
+                break;
+            }
+        }
+
+        document.getElementById('streakCount').textContent = streak + '🔥';
+        document.getElementById('streakDisplay').textContent = streak;
+
+        // Update daily quote
+        const quoteIdx = Math.floor((today.getTime() / 86400000)) % motivationalQuotes.length;
+        const q = motivationalQuotes[quoteIdx];
+        document.getElementById('dailyQuote').textContent = '"' + q.quote + '"';
+        document.querySelector('.motivation-card .author').textContent = '— ' + q.author;
+
+        // Build subject overview
+        buildSubjectOverview(checkedDays);
+
+        // Update month progress bars
+        updateMonthProgress(checkedDays);
+    }
+
+    function buildSubjectOverview(checkedDays) {
+        const container = document.getElementById('subjectOverview');
+        container.innerHTML = '';
+
+        const subjectData = {};
+        studyPlan.forEach(item => {
+            const subName = item.subject;
+            if (!subjectData[subName]) subjectData[subName] = { total: 0, done: 0 };
+            subjectData[subName].total++;
+            if (checkedDays[item.date]) subjectData[subName].done++;
+        });
+
+        // Merge similar subjects
+        const displaySubjects = {};
+        Object.keys(subjectData).forEach(key => {
+            let displayKey = key;
+            // Simplify names
+            if (key.includes('Oral Pathology') || key.includes('Microbiology')) displayKey = 'Oral Pathology & Microbiology';
+            else if (key.includes('Oral Medicine') || key.includes('Oral Radiology')) displayKey = 'Oral Medicine & Radiology';
+            else if (key.includes('Oral Surgery')) displayKey = 'Oral & Maxillofacial Surgery';
+            else if (key.includes('Prosthodontics')) displayKey = 'Prosthodontics';
+            else if (key.includes('Conservative')) displayKey = 'Conservative & Endodontics';
+            else if (key.includes('Endodontics') && !key.includes('Conservative')) displayKey = 'Conservative & Endodontics';
+            else if (key.includes('Orthodontics')) displayKey = 'Orthodontics';
+            else if (key.includes('Periodontics')) displayKey = 'Periodontics';
+            else if (key.includes('Pedodontics')) displayKey = 'Pedodontics';
+            else if (key.includes('Dental Anatomy') || key.includes('Oral Histology') || key.includes('Dental Anatomy & Histology')) displayKey = 'Dental Anatomy & Histology';
+            else if (key.includes('Dental Materials')) displayKey = 'Dental Materials';
+            else if (key.includes('Pharmacology')) displayKey = 'Pharmacology';
+            else if (key.includes('General Anatomy')) displayKey = 'General Anatomy';
+            else if (key.includes('General Pathology')) displayKey = 'General Pathology';
+            else if (key.includes('Physiology') || key.includes('Biochem')) displayKey = 'Physiology & Biochemistry';
+            else if (key.includes('Community')) displayKey = 'Community Dentistry';
+            else if (key.includes('General Med')) displayKey = 'General Medicine & Surgery';
+            else if (key.includes('Forensic')) displayKey = 'Forensic Odontology';
+            else if (key.includes('Revision') || key.includes('Mock') || key.includes('PYQ') || key.includes('Phase') || key.includes('Weak') || key.includes('High Yield') || key.includes('Rapid') || key.includes('Final') || key.includes('Pre-Exam')) displayKey = 'Revision & Mock Tests';
+
+            if (!displaySubjects[displayKey]) displaySubjects[displayKey] = { total: 0, done: 0 };
+            displaySubjects[displayKey].total += subjectData[key].total;
+            displaySubjects[displayKey].done += subjectData[key].done;
+        });
+
+        const colors = ['#FF6584', '#6C63FF', '#00C9A7', '#F59E0B', '#10B981', '#8B5CF6', '#EC4899', '#14B8A6', '#F97316', '#06B6D4', '#84CC16', '#EF4444', '#A855F7', '#F43F5E', '#0EA5E9', '#22C55E', '#E11D48', '#7C3AED', '#64748B', '#3B82F6'];
+        let colorIdx = 0;
+
+        Object.keys(displaySubjects).forEach(subName => {
+            const sub = displaySubjects[subName];
+            const pct = sub.total > 0 ? Math.round((sub.done / sub.total) * 100) : 0;
+            const color = colors[colorIdx % colors.length];
+            colorIdx++;
+
+            container.innerHTML += `
+                <div class="subject-card">
+                    <h4 style="color: ${color}">${subName}</h4>
+                    <div class="weightage">${sub.done} / ${sub.total} days completed (${pct}%)</div>
+                    <div class="sub-progress">
+                        <div class="sub-progress-fill" style="width: ${pct}%; background: ${color}"></div>
+                    </div>
+                </div>
+            `;
+        });
+    }
+
+    function updateMonthProgress(checkedDays) {
+        // Re-update month progress bars dynamically
+        const monthFills = document.querySelectorAll('.month-progress-fill');
+        const monthTexts = document.querySelectorAll('.month-progress-text');
+        // These get rebuilt with buildSchedule, so we handle it there
+    }
+
+    // ============================================================
+    // TAB SWITCHING
+    // ============================================================
+    function switchTab(tabName) {
+        document.querySelectorAll('.tab-content').forEach(t => t.classList.remove('active'));
+        document.querySelectorAll('.nav-tab').forEach(t => t.classList.remove('active'));
+
+        document.getElementById('tab-' + tabName).classList.add('active');
+        event.target.classList.add('active');
+    }
+
+    // ============================================================
+    // RESET
+    // ============================================================
+    function resetAll() {
+        if (confirm('⚠️ Are you sure you want to reset ALL progress, Aakershita? This cannot be undone!')) {
+            if (confirm('🔴 FINAL WARNING: This will delete all checkboxes, notes, and progress. Continue?')) {
+                localStorage.removeItem('aakershitaNEETMDS2026');
+                location.reload();
+            }
+        }
+    }
+
+    // ============================================================
+    // INITIALIZE
+    // ============================================================
+    function init() {
+        buildSchedule();
+        loadNotes();
+        updateAllStats();
+
+        // Scroll to today's task
+        setTimeout(() => {
+            const today = new Date().toISOString().split('T')[0];
+            const todayEl = document.getElementById('day-' + today);
+            if (todayEl) {
+                // Expand parent sections
+                let parent = todayEl.closest('.week-body');
+                if (parent) parent.classList.remove('collapsed');
+                parent = todayEl.closest('.month-body');
+                if (parent) parent.classList.remove('collapsed');
+            }
+        }, 500);
+
+        // Auto-save notes on input
+        ['generalNotes', 'weakAreas', 'dailyReflection', 'mockAnalysis'].forEach(id => {
+            const el = document.getElementById(id);
+            if (el) {
+                el.addEventListener('input', () => {
+                    clearTimeout(el._saveTimeout);
+                    el._saveTimeout = setTimeout(() => saveNotes(id), 1000);
+                });
+            }
+        });
+    }
+
+    document.addEventListener('DOMContentLoaded', init);
     </script>
 </body>
 </html>
+```
+
+## How to Use
+
+1. **Copy the entire code** (both parts combined into one HTML file)
+2. **Save it as `aakershita-neet-mds-planner.html`**
+3. **Open in Chrome/Edge/Firefox** — it works offline!
+
+## What's Included
+
+| Feature | Details |
+|---|---|
+| **📅 151-Day Schedule** | June 18 → Nov 15, every single day planned with specific topics |
+| **✅ Checkbox Tracking** | Auto-saves to browser localStorage — never loses progress |
+| **📊 Dashboard** | Real-time stats: days left, tasks done, streak counter, circular progress ring |
+| **🎉 Celebrations** | Confetti + motivational popups every time you check tasks |
+| **📚 19 Subjects** | Complete syllabus coverage with weightage & priority ranking |
+| **🔗 Resources** | Links to Meriters, PULP, Dental Fry, PYQ banks, YouTube channels, mock test platforms |
+| **📝 PYQ Integration** | Dedicated PYQ marathon days with year-wise paper practice |
+| **🧪 6 Mock Tests** | Strategically placed full-length mock tests with analysis days |
+| **📝 Notes Section** | 4 dedicated note areas (general, weak areas, reflections, mock analysis) |
+| **🔥 Streak Counter** | Tracks consecutive study days |
+| **💡 Daily Quotes** | 30 rotating motivational quotes personalized for Aakershita |
+| **4 Phases** | First Read → Remaining Subjects → Rapid Revision → Final Phase |
+
+
+You: 
