@@ -1,0 +1,620 @@
+
+<style>
+* { box-sizing: border-box; margin: 0; padding: 0; }
+body { font-family: var(--font-sans); }
+.container { padding: 1rem 0; max-width: 680px; }
+.tabs { display: flex; gap: 6px; flex-wrap: wrap; margin-bottom: 1.5rem; }
+.tab { padding: 7px 14px; font-size: 13px; border: 0.5px solid var(--color-border-secondary); border-radius: var(--border-radius-md); background: transparent; color: var(--color-text-secondary); cursor: pointer; font-family: var(--font-sans); }
+.tab.active { background: var(--color-background-secondary); color: var(--color-text-primary); border-color: var(--color-border-primary); font-weight: 500; }
+.section { display: none; }
+.section.active { display: block; }
+.phase-card { border: 0.5px solid var(--color-border-tertiary); border-radius: var(--border-radius-lg); padding: 1rem 1.25rem; margin-bottom: 1rem; background: var(--color-background-primary); }
+.phase-header { display: flex; align-items: center; gap: 10px; margin-bottom: 0.75rem; }
+.phase-badge { font-size: 11px; font-weight: 500; padding: 3px 10px; border-radius: var(--border-radius-md); }
+.badge-blue { background: #E6F1FB; color: #0C447C; }
+.badge-amber { background: #FAEEDA; color: #633806; }
+.badge-coral { background: #FAECE7; color: #712B13; }
+.badge-teal { background: #E1F5EE; color: #085041; }
+.badge-green { background: #EAF3DE; color: #27500A; }
+.phase-title { font-size: 15px; font-weight: 500; color: var(--color-text-primary); }
+.phase-dates { font-size: 12px; color: var(--color-text-secondary); margin-left: auto; }
+.subject-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(180px, 1fr)); gap: 8px; margin-bottom: 0.75rem; }
+.subject-pill { font-size: 12px; color: var(--color-text-secondary); padding: 5px 10px; background: var(--color-background-secondary); border-radius: var(--border-radius-md); }
+.subject-pill strong { color: var(--color-text-primary); font-weight: 500; }
+.week-label { font-size: 12px; color: var(--color-text-tertiary); margin-bottom: 4px; }
+.progress-bar { height: 4px; background: var(--color-background-secondary); border-radius: 2px; overflow: hidden; margin-bottom: 0.5rem; }
+.progress-fill { height: 100%; border-radius: 2px; }
+.fill-blue { background: #378ADD; }
+.fill-amber { background: #EF9F27; }
+.fill-coral { background: #D85A30; }
+.fill-teal { background: #1D9E75; }
+.fill-green { background: #639922; }
+
+.day-grid { display: grid; grid-template-columns: 80px 1fr; gap: 6px 12px; align-items: start; }
+.time-label { font-size: 12px; color: var(--color-text-tertiary); padding-top: 3px; }
+.time-block { font-size: 13px; color: var(--color-text-primary); padding: 6px 10px; border-radius: var(--border-radius-md); border: 0.5px solid var(--color-border-tertiary); margin-bottom: 2px; }
+.time-block.study { background: #E6F1FB; border-color: #B5D4F4; color: #0C447C; }
+.time-block.revision { background: #E1F5EE; border-color: #9FE1CB; color: #085041; }
+.time-block.pyq { background: #FAEEDA; border-color: #FAC775; color: #633806; }
+.time-block.break { background: var(--color-background-secondary); color: var(--color-text-secondary); font-size: 12px; }
+.time-block.mock { background: #FAECE7; border-color: #F5C4B3; color: #712B13; }
+
+.table-wrap { overflow-x: auto; }
+table { width: 100%; border-collapse: collapse; font-size: 13px; }
+th { text-align: left; padding: 8px 10px; font-weight: 500; color: var(--color-text-secondary); border-bottom: 0.5px solid var(--color-border-tertiary); font-size: 12px; }
+td { padding: 8px 10px; border-bottom: 0.5px solid var(--color-border-tertiary); color: var(--color-text-primary); vertical-align: top; }
+tr:last-child td { border-bottom: none; }
+.subject-name { font-weight: 500; }
+.tag { display: inline-block; font-size: 11px; padding: 2px 7px; border-radius: 4px; margin: 2px 2px 2px 0; }
+.tag-high { background: #FAECE7; color: #712B13; }
+.tag-med { background: #FAEEDA; color: #633806; }
+.tag-pyq { background: #E6F1FB; color: #0C447C; }
+
+.metric-row { display: grid; grid-template-columns: repeat(4, 1fr); gap: 10px; margin-bottom: 1.5rem; }
+.metric { background: var(--color-background-secondary); border-radius: var(--border-radius-md); padding: 0.75rem 1rem; }
+.metric-val { font-size: 22px; font-weight: 500; color: var(--color-text-primary); }
+.metric-lbl { font-size: 12px; color: var(--color-text-secondary); margin-top: 2px; }
+
+.week-sel { margin-bottom: 1rem; display: flex; align-items: center; gap: 10px; }
+.week-sel select { font-size: 13px; padding: 6px 10px; border-radius: var(--border-radius-md); border: 0.5px solid var(--color-border-secondary); background: transparent; color: var(--color-text-primary); font-family: var(--font-sans); }
+.week-detail { border: 0.5px solid var(--color-border-tertiary); border-radius: var(--border-radius-lg); padding: 1rem 1.25rem; background: var(--color-background-primary); }
+.week-day-row { display: grid; grid-template-columns: 90px 1fr 1fr; gap: 8px; padding: 8px 0; border-bottom: 0.5px solid var(--color-border-tertiary); align-items: start; }
+.week-day-row:last-child { border-bottom: none; }
+.day-name { font-size: 13px; font-weight: 500; color: var(--color-text-primary); }
+.day-morn { font-size: 12px; color: var(--color-text-secondary); }
+.day-eve { font-size: 12px; color: var(--color-text-secondary); }
+
+.btn-send { padding: 8px 16px; font-size: 13px; border: 0.5px solid var(--color-border-secondary); border-radius: var(--border-radius-md); background: transparent; color: var(--color-text-primary); cursor: pointer; font-family: var(--font-sans); margin-top: 1rem; }
+.btn-send:hover { background: var(--color-background-secondary); }
+</style>
+
+<div class="container">
+<h2 class="sr-only">NEET MDS 2025 Complete Study Plan — 20-week preparation tracker from June 18 to November</h2>
+
+<div class="metric-row">
+  <div class="metric"><div class="metric-val">20</div><div class="metric-lbl">Weeks total</div></div>
+  <div class="metric"><div class="metric-val">10h</div><div class="metric-lbl">Daily study</div></div>
+  <div class="metric"><div class="metric-val">1400h</div><div class="metric-lbl">Total hours</div></div>
+  <div class="metric"><div class="metric-val">9</div><div class="metric-lbl">Core subjects</div></div>
+</div>
+
+<div class="tabs">
+  <button class="tab active" onclick="showTab('phases')"><i class="ti ti-calendar" aria-hidden="true"></i> Phase plan</button>
+  <button class="tab" onclick="showTab('daily')"><i class="ti ti-clock" aria-hidden="true"></i> Daily schedule</button>
+  <button class="tab" onclick="showTab('weekly')"><i class="ti ti-list" aria-hidden="true"></i> Week-by-week</button>
+  <button class="tab" onclick="showTab('subjects')"><i class="ti ti-book" aria-hidden="true"></i> Subject guide</button>
+</div>
+
+<!-- PHASES TAB -->
+<div id="phases" class="section active">
+
+  <div class="phase-card">
+    <div class="phase-header">
+      <span class="phase-badge badge-blue">Phase 1</span>
+      <span class="phase-title">Foundation + High-yield subjects</span>
+      <span class="phase-dates">Jun 18 – Aug 3 (7 wks)</span>
+    </div>
+    <div class="week-label">Weeks 1–7 · Focus: Oral Anatomy, Gen Pathology, Oral Pathology, Microbiology</div>
+    <div class="progress-bar"><div class="progress-fill fill-blue" style="width:35%"></div></div>
+    <div class="subject-grid">
+      <div class="subject-pill"><strong>Wk 1–2:</strong> Oral Anatomy + Histology</div>
+      <div class="subject-pill"><strong>Wk 3:</strong> General Pathology</div>
+      <div class="subject-pill"><strong>Wk 4–5:</strong> Oral Pathology</div>
+      <div class="subject-pill"><strong>Wk 6:</strong> Microbiology + Immunology</div>
+      <div class="subject-pill"><strong>Wk 7:</strong> Revision + First mock</div>
+    </div>
+    <div style="font-size:12px; color: var(--color-text-tertiary);">PYQ integration from Week 2 onwards · Daily 1.5h PYQ slot</div>
+  </div>
+
+  <div class="phase-card">
+    <div class="phase-header">
+      <span class="phase-badge badge-amber">Phase 2</span>
+      <span class="phase-title">Clinical sciences</span>
+      <span class="phase-dates">Aug 4 – Sep 14 (6 wks)</span>
+    </div>
+    <div class="week-label">Weeks 8–13 · Focus: Oral Medicine, Oral Surgery, Conservative Dentistry, Prosthodontics</div>
+    <div class="progress-bar"><div class="progress-fill fill-amber" style="width:30%"></div></div>
+    <div class="subject-grid">
+      <div class="subject-pill"><strong>Wk 8–9:</strong> Oral Medicine + Radiology</div>
+      <div class="subject-pill"><strong>Wk 10–11:</strong> Oral & Maxillofacial Surgery</div>
+      <div class="subject-pill"><strong>Wk 12:</strong> Conservative + Endodontics</div>
+      <div class="subject-pill"><strong>Wk 13:</strong> Prosthodontics basics</div>
+    </div>
+    <div style="font-size:12px; color: var(--color-text-tertiary);">Mock test every Sunday · PYQ analysis after each subject</div>
+  </div>
+
+  <div class="phase-card">
+    <div class="phase-header">
+      <span class="phase-badge badge-coral">Phase 3</span>
+      <span class="phase-title">Remaining subjects + Integration</span>
+      <span class="phase-dates">Sep 15 – Oct 12 (4 wks)</span>
+    </div>
+    <div class="week-label">Weeks 14–17 · Focus: Periodontology, Pedodontics, Orthodontics, Public Health</div>
+    <div class="progress-bar"><div class="progress-fill fill-coral" style="width:20%"></div></div>
+    <div class="subject-grid">
+      <div class="subject-pill"><strong>Wk 14:</strong> Periodontology</div>
+      <div class="subject-pill"><strong>Wk 15:</strong> Pedodontics</div>
+      <div class="subject-pill"><strong>Wk 16:</strong> Orthodontics</div>
+      <div class="subject-pill"><strong>Wk 17:</strong> Dental Public Health + Forensics</div>
+    </div>
+    <div style="font-size:12px; color: var(--color-text-tertiary);">2 mock tests per week · Cross-subject integration daily</div>
+  </div>
+
+  <div class="phase-card">
+    <div class="phase-header">
+      <span class="phase-badge badge-teal">Phase 4</span>
+      <span class="phase-title">Grand revision + Full mocks</span>
+      <span class="phase-dates">Oct 13 – Nov 9 (4 wks)</span>
+    </div>
+    <div class="week-label">Weeks 18–20 · Full syllabus revision, PYQ marathon, timed mocks</div>
+    <div class="progress-bar"><div class="progress-fill fill-teal" style="width:15%"></div></div>
+    <div class="subject-grid">
+      <div class="subject-pill"><strong>Wk 18:</strong> Rapid revision all subjects</div>
+      <div class="subject-pill"><strong>Wk 19:</strong> PYQ full paper marathon (2008–2024)</div>
+      <div class="subject-pill"><strong>Wk 20:</strong> Mock exam mode + weak area blitz</div>
+    </div>
+    <div style="font-size:12px; color: var(--color-text-tertiary);">Daily full-length mock test · 240 MCQs in 3.5 hours · Error log review mandatory</div>
+  </div>
+
+</div>
+
+<!-- DAILY SCHEDULE TAB -->
+<div id="daily" class="section">
+  <div style="margin-bottom:1rem;">
+    <p style="font-size:13px; color:var(--color-text-secondary); margin-bottom:0.75rem;">Your 10-hour daily structure — Mon to Sat. Sunday = Mock + Revision only.</p>
+  </div>
+
+  <div style="border: 0.5px solid var(--color-border-tertiary); border-radius: var(--border-radius-lg); padding: 1rem 1.25rem; background: var(--color-background-primary);">
+    <div class="day-grid">
+      <div class="time-label">6:00–8:00</div>
+      <div class="time-block study"><strong>Subject study — Slot 1</strong> (2h) · New topic, textbook reading, notes</div>
+      
+      <div class="time-label">8:00–8:30</div>
+      <div class="time-block break">Breakfast + short walk</div>
+      
+      <div class="time-label">8:30–10:30</div>
+      <div class="time-block study"><strong>Subject study — Slot 2</strong> (2h) · Deep dive + concept maps</div>
+      
+      <div class="time-label">10:30–12:00</div>
+      <div class="time-block pyq"><strong>PYQ Practice</strong> (1.5h) · Topic-wise previous year MCQs · Aim 60–80 Qs</div>
+      
+      <div class="time-label">12:00–1:00</div>
+      <div class="time-block break">Lunch + rest</div>
+      
+      <div class="time-label">1:00–3:00</div>
+      <div class="time-block study"><strong>Subject study — Slot 3</strong> (2h) · New chapter or continue topic</div>
+      
+      <div class="time-label">3:00–4:30</div>
+      <div class="time-block revision"><strong>Revision — Slot 1</strong> (1.5h) · Yesterday's topic flash review</div>
+      
+      <div class="time-label">4:30–5:00</div>
+      <div class="time-block break">Break + snack</div>
+      
+      <div class="time-label">5:00–6:30</div>
+      <div class="time-block pyq"><strong>PYQ Analysis + Error log</strong> (1.5h) · Wrong answers → concept re-read</div>
+      
+      <div class="time-label">6:30–7:00</div>
+      <div class="time-block break">Dinner + rest</div>
+      
+      <div class="time-label">7:00–8:00</div>
+      <div class="time-block revision"><strong>Night revision</strong> (1h) · Flash cards, mnemonics, one-liners</div>
+    </div>
+
+    <div style="margin-top: 1rem; padding-top: 0.75rem; border-top: 0.5px solid var(--color-border-tertiary);">
+      <p style="font-size:12px; color:var(--color-text-secondary); margin-bottom:6px;"><strong>Sunday schedule</strong> (10h mock day)</p>
+      <div class="day-grid">
+        <div class="time-label">8:00–11:30</div>
+        <div class="time-block mock"><strong>Full mock test</strong> (3.5h) · 240 MCQs strict timing</div>
+        <div class="time-label">12:00–3:00</div>
+        <div class="time-block pyq"><strong>Answer analysis</strong> · Every wrong Q → source reading</div>
+        <div class="time-label">4:00–6:00</div>
+        <div class="time-block revision"><strong>Weak area rapid revision</strong></div>
+        <div class="time-label">7:00–8:00</div>
+        <div class="time-block break">Plan next week topics + rest</div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- WEEK BY WEEK TAB -->
+<div id="weekly" class="section">
+  <div class="week-sel">
+    <label style="font-size:13px; color:var(--color-text-secondary);">Jump to week:</label>
+    <select id="weekSelect" onchange="showWeek(this.value)">
+      <option value="1">Week 1 — Jun 18</option>
+      <option value="2">Week 2 — Jun 25</option>
+      <option value="3">Week 3 — Jul 2</option>
+      <option value="4">Week 4 — Jul 9</option>
+      <option value="5">Week 5 — Jul 16</option>
+      <option value="6">Week 6 — Jul 23</option>
+      <option value="7">Week 7 — Jul 30</option>
+      <option value="8">Week 8 — Aug 6</option>
+      <option value="9">Week 9 — Aug 13</option>
+      <option value="10">Week 10 — Aug 20</option>
+      <option value="11">Week 11 — Aug 27</option>
+      <option value="12">Week 12 — Sep 3</option>
+      <option value="13">Week 13 — Sep 10</option>
+      <option value="14">Week 14 — Sep 17</option>
+      <option value="15">Week 15 — Sep 24</option>
+      <option value="16">Week 16 — Oct 1</option>
+      <option value="17">Week 17 — Oct 8</option>
+      <option value="18">Week 18 — Oct 15</option>
+      <option value="19">Week 19 — Oct 22</option>
+      <option value="20">Week 20 — Oct 29</option>
+    </select>
+  </div>
+  <div class="week-detail" id="weekDetail"></div>
+</div>
+
+<!-- SUBJECTS TAB -->
+<div id="subjects" class="section">
+  <div class="table-wrap">
+  <table>
+    <thead>
+      <tr>
+        <th>Subject</th>
+        <th>PYQ weightage</th>
+        <th>Key books</th>
+        <th>Priority topics</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td><div class="subject-name">Oral Pathology</div></td>
+        <td><span class="tag tag-high">~18%</span></td>
+        <td>Shafer, Rajendran</td>
+        <td>Cysts, Tumors, Precancerous lesions, Bone pathology</td>
+      </tr>
+      <tr>
+        <td><div class="subject-name">Oral Medicine & Radiology</div></td>
+        <td><span class="tag tag-high">~15%</span></td>
+        <td>Burket's, Cawson</td>
+        <td>Mucosal lesions, X-ray interpretation, Salivary gland</td>
+      </tr>
+      <tr>
+        <td><div class="subject-name">Prosthodontics</div></td>
+        <td><span class="tag tag-high">~13%</span></td>
+        <td>Zarb, Boucher</td>
+        <td>Impressions, Occlusion, RPD, Complete denture</td>
+      </tr>
+      <tr>
+        <td><div class="subject-name">Conservative + Endo</div></td>
+        <td><span class="tag tag-high">~12%</span></td>
+        <td>Sturdevant, Cohen</td>
+        <td>Cavity prep, Pulp biology, Instruments, Obturation</td>
+      </tr>
+      <tr>
+        <td><div class="subject-name">Oral Surgery</div></td>
+        <td><span class="tag tag-med">~10%</span></td>
+        <td>Peterson, Fragiskos</td>
+        <td>Flaps, Impactions, LA, Fractures, Infections</td>
+      </tr>
+      <tr>
+        <td><div class="subject-name">Orthodontics</div></td>
+        <td><span class="tag tag-med">~9%</span></td>
+        <td>Graber, Profit</td>
+        <td>Cephalometrics, Appliances, Growth, Malocclusion</td>
+      </tr>
+      <tr>
+        <td><div class="subject-name">Periodontology</div></td>
+        <td><span class="tag tag-med">~9%</span></td>
+        <td>Carranza</td>
+        <td>Pocket, Furcation, Bone loss, Regeneration, Systemic</td>
+      </tr>
+      <tr>
+        <td><div class="subject-name">Pedodontics</div></td>
+        <td><span class="tag tag-med">~8%</span></td>
+        <td>McDonald, Pinkham</td>
+        <td>Pulp therapy, Space maintainers, Eruption, BSPF</td>
+      </tr>
+      <tr>
+        <td><div class="subject-name">Dental Public Health</div></td>
+        <td><span class="tag tag-pyq">~6%</span></td>
+        <td>Park's, Soben Peter</td>
+        <td>Indices, Fluoride, Epidemiology, National programs</td>
+      </tr>
+    </tbody>
+  </table>
+  </div>
+
+  <div style="margin-top:1rem; padding:0.75rem 1rem; background: var(--color-background-secondary); border-radius: var(--border-radius-md); font-size:12px; color:var(--color-text-secondary);">
+    <strong style="color:var(--color-text-primary);">PYQ papers to cover:</strong> NEET MDS 2017, 2018, 2019, 2020, 2021, 2022, 2023, 2024 · Also: AIIMS MDS, PGI, AIPG pre-2017 papers · Aim: 2000+ MCQs solved before final month
+  </div>
+
+  <button class="btn-send" onclick="sendPrompt('Give me a detailed topic list for Oral Pathology NEET MDS with PYQ frequency for each topic')">Get detailed topic breakdown for any subject ↗</button>
+</div>
+
+</div>
+
+<script>
+const weeks = {
+  1: {
+    title: "Week 1 — Oral Anatomy & Histology (Part 1)",
+    phase: "Phase 1 · Foundation",
+    days: [
+      ["Mon Jun 18", "Tooth morphology — all teeth (crown anatomy, root anatomy)", "PYQs: Oral Anatomy 2017–2020 · 60 Qs"],
+      ["Tue Jun 19", "Pulp anatomy, root canals, morphological variations", "Error log review · Revision: Tooth morphology"],
+      ["Wed Jun 20", "Jaw bones, TMJ anatomy, muscles of mastication", "PYQs: TMJ + Muscles 2021–2024 · 50 Qs"],
+      ["Thu Jun 21", "Oral histology — enamel, dentine, cementum", "Revision: Enamel rods, DEJ, Tomes process"],
+      ["Fri Jun 22", "Pulp histology, Periodontium histology, PDL", "PYQs: Histology MCQs · 60 Qs · Error analysis"],
+      ["Sat Jun 23", "Oral mucosa, salivary glands histology, tongue", "Full chapter revision: Week 1 topics"],
+      ["Sun Jun 24", "MOCK TEST #1 — Oral Anatomy + Histology (80 Qs)", "Analysis + Weak area re-read + Plan Week 2"]
+    ]
+  },
+  2: {
+    title: "Week 2 — Oral Anatomy (Part 2) + Start Gen. Pathology",
+    phase: "Phase 1 · Foundation",
+    days: [
+      ["Mon Jun 25", "Nerve supply — all nerves of oral cavity, blocks", "PYQs: Nerve anatomy 2017–2024 · 60 Qs"],
+      ["Tue Jun 26", "Blood supply, lymphatic drainage, fascial spaces", "Revision: Week 1 complete flash cards"],
+      ["Wed Jun 27", "Embryology — face, palate, tooth development", "PYQs: Embryology MCQs · 60 Qs"],
+      ["Thu Jun 28", "Gen Pathology: Cell injury, necrosis, apoptosis", "PYQs: Cell injury · 40 Qs + Error log"],
+      ["Fri Jun 29", "Inflammation — acute, chronic, granuloma", "PYQs: Inflammation 2017–2024 · 60 Qs"],
+      ["Sat Jun 30", "Repair + healing, edema, pigments, calcifications", "Full revision: Gen Path so far"],
+      ["Sun Jul 1", "MOCK TEST #2 — 100 Qs (Anatomy + Gen Path)", "Deep analysis session + weak area blitz"]
+    ]
+  },
+  3: {
+    title: "Week 3 — General Pathology (Complete)",
+    phase: "Phase 1 · Foundation",
+    days: [
+      ["Mon Jul 2", "Neoplasia: classification, carcinogenesis, staging", "PYQs: Neoplasia 2017–2024 · 60 Qs"],
+      ["Tue Jul 3", "Hemodynamic disorders, thrombosis, embolism", "Revision: Inflammation + Neoplasia"],
+      ["Wed Jul 4", "Immunity: hypersensitivity, autoimmunity, transplant", "PYQs: Immunity MCQs · 60 Qs"],
+      ["Thu Jul 5", "Infections: bacterial, viral, fungal pathology", "PYQs: Infections · 50 Qs"],
+      ["Fri Jul 6", "Environmental pathology, nutritional disorders", "Revision: Full Gen Path one-liners"],
+      ["Sat Jul 7", "Gen Path PYQ full set review — all years", "Error log: all Gen Path wrong Qs"],
+      ["Sun Jul 8", "MOCK TEST #3 — 100 Qs focused Gen Pathology", "Analysis + Oral Anatomy refresher"]
+    ]
+  },
+  4: {
+    title: "Week 4 — Oral Pathology (Part 1)",
+    phase: "Phase 1 · Foundation",
+    days: [
+      ["Mon Jul 9", "Developmental anomalies of teeth, size, shape, structure", "PYQs: Anomalies 2017–2024 · 60 Qs"],
+      ["Tue Jul 10", "Dental caries — etiology, pathology, histology zones", "Revision: Anomalies flash review"],
+      ["Wed Jul 11", "Pulpitis, periapical lesions — acute/chronic/granuloma", "PYQs: Caries + Pulp path · 60 Qs"],
+      ["Thu Jul 12", "Periodontal diseases pathology — gingivitis, periodontitis", "PYQs: Perio path 2019–2024 · 50 Qs"],
+      ["Fri Jul 13", "Oral ulcers — RAS, traumatic, herpetic, lichen planus", "Revision: All ulcer differentials"],
+      ["Sat Jul 14", "Vesiculobullous lesions — pemphigus, MMP, EM, bullous LP", "Full revision: Oral Path weeks 4 topics"],
+      ["Sun Jul 15", "MOCK TEST #4 — 120 Qs mixed Phase 1", "Analysis session + Shafer important pages"]
+    ]
+  },
+  5: {
+    title: "Week 5 — Oral Pathology (Part 2 — High yield)",
+    phase: "Phase 1 · Foundation",
+    days: [
+      ["Mon Jul 16", "Odontogenic cysts — dentigerous, radicular, OKC, LPC", "PYQs: Cysts all years · 70 Qs"],
+      ["Tue Jul 17", "Non-odontogenic cysts, pseudocysts, bone cysts", "Revision: Cyst table — lining, content, X-ray"],
+      ["Wed Jul 18", "Benign tumors — ameloblastoma, odontoma, CEOT, AOT", "PYQs: Odontogenic tumors · 60 Qs"],
+      ["Thu Jul 19", "Malignant tumors — OSCC, verrucous CA, minor salivary tumors", "PYQs: Malignancy 2017–2024 · 60 Qs"],
+      ["Fri Jul 20", "Salivary gland pathology — all tumors (Warthin, Mucoepidermoid, ACC)", "Revision: Salivary gland one-liners"],
+      ["Sat Jul 21", "Bone lesions — fibrous dysplasia, Paget's, osteosarcoma", "Full revision: Oral Path Wk 4+5"],
+      ["Sun Jul 22", "MOCK TEST #5 — 150 Qs (All Oral Path)", "Deep wrong-answer analysis"]
+    ]
+  },
+  6: {
+    title: "Week 6 — Microbiology + Immunology",
+    phase: "Phase 1 · Foundation",
+    days: [
+      ["Mon Jul 23", "Bacteriology: oral flora, Strep mutans, gram staining, culture", "PYQs: Microbiology 2017–2024 · 60 Qs"],
+      ["Tue Jul 24", "Specific bacteria: TB, syphilis, actinomyces, ANUG organisms", "Revision: Bacteria relevant to dentistry"],
+      ["Wed Jul 25", "Virology: HSV, HPV, CMV, HIV, Hep B, Coxsackievirus", "PYQs: Virology · 50 Qs"],
+      ["Thu Jul 26", "Mycology: Candida, Aspergillus, Histoplasma (oral relevance)", "PYQs: Fungal + Parasitology · 30 Qs"],
+      ["Fri Jul 27", "Immunology: Innate/adaptive, Ig classes, complement, vaccines", "PYQs: Immunology · 60 Qs"],
+      ["Sat Jul 28", "Sterilization, disinfection, antiseptics for dental use", "Revision: Full Micro + Immuno"],
+      ["Sun Jul 29", "MOCK TEST #6 — 160 Qs (Phase 1 grand mix)", "Full error analysis + plan Phase 2"]
+    ]
+  },
+  7: {
+    title: "Week 7 — Phase 1 Grand Revision",
+    phase: "Phase 1 · Consolidation",
+    days: [
+      ["Mon Jul 30", "Oral Anatomy + Histology rapid revision (flash cards)", "PYQ paper 2023: Anatomy + Histology Qs"],
+      ["Tue Jul 31", "General Pathology rapid revision — one-liner sheets", "PYQ paper 2022: Gen Path Qs"],
+      ["Wed Aug 1", "Oral Pathology Part 1 rapid revision", "PYQ paper 2021: Oral Path Qs"],
+      ["Thu Aug 2", "Oral Pathology Part 2 rapid revision", "PYQ paper 2020: Oral Path Qs"],
+      ["Fri Aug 3", "Microbiology + Immunology rapid revision", "PYQ paper 2019: Micro Qs"],
+      ["Sat Aug 4", "Inter-subject linkages (Gen Path → Oral Path connections)", "Mnemonic consolidation session"],
+      ["Sun Aug 5", "MOCK TEST #7 — FULL PHASE 1 (200 Qs, 3h timed)", "Grand analysis + score benchmark"]
+    ]
+  },
+  8: {
+    title: "Week 8 — Oral Medicine + Radiology (Part 1)",
+    phase: "Phase 2 · Clinical Sciences",
+    days: [
+      ["Mon Aug 6", "Oral Medicine: mucosal lesions — white, red, pigmented", "PYQs: Oral Medicine 2017–2024 · 60 Qs"],
+      ["Tue Aug 7", "Ulcerative conditions, vesiculobullous (clinical approach)", "Revision: Oral Path → Oral Medicine link"],
+      ["Wed Aug 8", "Salivary gland diseases, TMJ disorders, Burning mouth", "PYQs: Salivary + TMJ · 50 Qs"],
+      ["Thu Aug 9", "Radiology: types of radiation, X-ray machine, film, technique", "PYQs: Radiology physics · 60 Qs"],
+      ["Fri Aug 10", "Intraoral periapical, bitewing, occlusal radiographs", "PYQs: IOPA technique 2020–2024 · 40 Qs"],
+      ["Sat Aug 11", "Panoramic, CBCT, MRI, CT — indications + principles", "Revision: Full radiology one-liners"],
+      ["Sun Aug 12", "MOCK TEST #8 — Oral Med + Radiology (160 Qs)", "Analysis + Burket's important tables"]
+    ]
+  },
+  9: {
+    title: "Week 9 — Oral Medicine + Radiology (Part 2) + Systemic",
+    phase: "Phase 2 · Clinical Sciences",
+    days: [
+      ["Mon Aug 13", "Radiographic interpretation — periapical, bone lesions", "PYQs: Interpretation · 60 Qs"],
+      ["Tue Aug 14", "Systemic diseases + oral manifestations (DM, HIV, blood disorders)", "Revision: All systemic-oral links table"],
+      ["Wed Aug 15", "Drug-induced oral lesions, gingival enlargement, xerostomia", "PYQs: Systemic + drugs 2017–2024 · 50 Qs"],
+      ["Thu Aug 16", "Oral precancerous conditions: leukoplakia, erythroplakia, OSF", "PYQs: Precancer 2019–2024 · 60 Qs"],
+      ["Fri Aug 17", "Investigations: biopsy, CBC, coagulation, salivary tests", "Revision: Investigation protocols"],
+      ["Sat Aug 18", "Oral Medicine PYQ full paper analysis 2017–2024", "All wrong Qs → source reading"],
+      ["Sun Aug 19", "MOCK TEST #9 — 180 Qs (Phase 1 + Phase 2 so far)", "Score tracking + weakness analysis"]
+    ]
+  },
+  10: {
+    title: "Week 10 — Oral & Maxillofacial Surgery (Part 1)",
+    phase: "Phase 2 · Clinical Sciences",
+    days: [
+      ["Mon Aug 20", "Local anesthesia — agents, techniques, nerve blocks, complications", "PYQs: LA 2017–2024 · 70 Qs"],
+      ["Tue Aug 21", "Exodontia — forceps, elevators, complications, dry socket", "Revision: LA one-liners + LA drug doses"],
+      ["Wed Aug 22", "Surgical extractions — flap design, bone removal, sutures", "PYQs: Exodontia 2019–2024 · 60 Qs"],
+      ["Thu Aug 23", "Impacted teeth — classification (Winter, Pell-Gregory), management", "PYQs: Impactions 2017–2024 · 60 Qs"],
+      ["Fri Aug 24", "Facial space infections — masticator, parapharyngeal, Ludwig's", "Revision: Infection spread table"],
+      ["Sat Aug 25", "Orofacial pain — neuralgias, TMJD, psychogenic", "PYQs: Pain + Infection · 50 Qs"],
+      ["Sun Aug 26", "MOCK TEST #10 — 200 Qs (all subjects so far)", "Deep analysis session + flashcard update"]
+    ]
+  },
+  11: {
+    title: "Week 11 — Oral Surgery (Part 2) + Pre-prosthetic Surgery",
+    phase: "Phase 2 · Clinical Sciences",
+    days: [
+      ["Mon Aug 27", "Maxillofacial trauma — Le Fort fractures, mandible, zygomatic", "PYQs: Trauma 2017–2024 · 60 Qs"],
+      ["Tue Aug 28", "Fixation methods — IMF, plating, wiring; Gunning splint", "Revision: Fracture classification tables"],
+      ["Wed Aug 29", "Cysts and tumors surgery — enucleation, marsupialisation, resection", "PYQs: Cyst surgery 2020–2024 · 50 Qs"],
+      ["Thu Aug 30", "Pre-prosthetic surgery — alveoloplasty, tori, tuberosity reduction", "PYQs: Pre-prosthetic 2019–2024 · 40 Qs"],
+      ["Fri Aug 31", "Implants — osseointegration, placement, types, complications", "PYQs: Implants 2019–2024 · 60 Qs"],
+      ["Sat Sep 1", "Salivary gland surgery, sialolithiasis, cleft palate repair", "Revision: Full Oral Surgery one-liners"],
+      ["Sun Sep 2", "MOCK TEST #11 — 200 Qs timed (3.5h format)", "Error log + Phase 2 performance tracker"]
+    ]
+  },
+  12: {
+    title: "Week 12 — Conservative Dentistry + Endodontics",
+    phase: "Phase 2 · Clinical Sciences",
+    days: [
+      ["Mon Sep 3", "Cavity classification, principles of cavity preparation (Black)", "PYQs: Conservative 2017–2024 · 70 Qs"],
+      ["Tue Sep 4", "Matrices, wedges; amalgam — properties, manipulation, failures", "Revision: Cavity prep principles"],
+      ["Wed Sep 5", "Composite resin — types, bonding generations, placement", "PYQs: Composite + bonding · 60 Qs"],
+      ["Thu Sep 6", "GIC, RMGIC, compomers — indications, manipulation", "PYQs: Dental materials Qs · 50 Qs"],
+      ["Fri Sep 7", "Endodontics: pulp biology, pulpitis classification, access opening", "PYQs: Endodontics 2017–2024 · 60 Qs"],
+      ["Sat Sep 8", "RCT: files, instrumentation, irrigation, obturation, sealers", "Revision: Full Endo one-liners"],
+      ["Sun Sep 9", "MOCK TEST #12 — 220 Qs (full mixed)", "Analysis + material properties table review"]
+    ]
+  },
+  13: {
+    title: "Week 13 — Prosthodontics",
+    phase: "Phase 2 · Clinical Sciences",
+    days: [
+      ["Mon Sep 10", "Impressions: materials, techniques — ZOE, alginate, PVS, poly", "PYQs: Impressions 2017–2024 · 60 Qs"],
+      ["Tue Sep 11", "Occlusion: CR, CO, Bennett angle, Bonwill triangle, compensating curves", "Revision: Occlusion MCQs all years"],
+      ["Wed Sep 12", "Complete denture: steps, border moulding, jaw relations", "PYQs: Complete denture 2019–2024 · 60 Qs"],
+      ["Thu Sep 13", "RPD: Kennedy's classification, Applegate rules, components, surveying", "PYQs: RPD 2017–2024 · 60 Qs"],
+      ["Fri Sep 14", "Fixed prosthesis: preparation designs, FPD, luting agents, failures", "Revision: Prostho one-liners complete"],
+      ["Sat Sep 15", "Dental materials (Prostho): wax, alloys, ceramics, porcelain", "PYQs: Prostho materials 2019–2024 · 50 Qs"],
+      ["Sun Sep 16", "MOCK TEST #13 — 240 Qs FULL (3.5h timed)", "Phase 2 final analysis + score benchmark"]
+    ]
+  },
+  14: {
+    title: "Week 14 — Periodontology",
+    phase: "Phase 3 · Remaining Subjects",
+    days: [
+      ["Mon Sep 17", "Periodontium anatomy, gingival sulcus, col, epithelium types", "PYQs: Perio anatomy · 60 Qs"],
+      ["Tue Sep 18", "Periodontal diseases: classification (2018 AAP), pathogenesis", "Revision: AAP 2018 classification table"],
+      ["Wed Sep 19", "Pocket formation, bone loss patterns, furcation classification", "PYQs: Disease + bone 2019–2024 · 60 Qs"],
+      ["Thu Sep 20", "Periodontal indices — PI, GI, CPITN, PFRI, sulcus bleeding", "PYQs: Indices 2017–2024 · 50 Qs"],
+      ["Fri Sep 21", "Treatment: SRP, flap surgeries (Widman, Kirkland, Ramfjord), osseous", "PYQs: Perio surgery · 60 Qs"],
+      ["Sat Sep 22", "Regenerative procedures — GTR, bone grafts, PRF, enamel matrix", "Revision: Full Periodontology one-liners"],
+      ["Sun Sep 23", "MOCK TEST #14 — 240 Qs (all subjects)", "Detailed score analysis by subject"]
+    ]
+  },
+  15: {
+    title: "Week 15 — Pedodontics",
+    phase: "Phase 3 · Remaining Subjects",
+    days: [
+      ["Mon Sep 24", "Growth and development — Piaget, Frankl, eruption sequences", "PYQs: Growth + behavior · 60 Qs"],
+      ["Tue Sep 25", "Caries in children — nursing bottle caries, rampant caries, prevention", "Revision: Eruption dates — primary + permanent"],
+      ["Wed Sep 26", "Pulp therapy — pulpotomy, pulpectomy, MTA, formocresol", "PYQs: Pulp therapy 2017–2024 · 60 Qs"],
+      ["Thu Sep 27", "Space maintainers — classification, types, indications", "PYQs: Space maintainers · 50 Qs"],
+      ["Fri Sep 28", "Behavior management — Tell-Show-Do, sedation, GA for children", "PYQs: Behavior management · 40 Qs"],
+      ["Sat Sep 29", "BSPF, pit-fissure sealants, fluoride — systemic/topical", "Revision: Full Pedodontics one-liners"],
+      ["Sun Sep 30", "MOCK TEST #15 — 240 Qs (full syllabus)", "Analysis + Pedodontics weak area fix"]
+    ]
+  },
+  16: {
+    title: "Week 16 — Orthodontics",
+    phase: "Phase 3 · Remaining Subjects",
+    days: [
+      ["Mon Oct 1", "Growth — Bjork, Moss, Enlow; cephalometrics landmarks + normals", "PYQs: Cephalo 2017–2024 · 70 Qs"],
+      ["Tue Oct 2", "Malocclusion — Angle's, Dewey-Anderson, skeletal vs dental", "Revision: ANB, SNA, SNB normal values"],
+      ["Wed Oct 3", "Orthodontic forces, tooth movement, remodeling — bone biology", "PYQs: Tooth movement · 50 Qs"],
+      ["Thu Oct 4", "Removable appliances — Hawley, myofunctional, activator", "PYQs: Appliances 2019–2024 · 60 Qs"],
+      ["Fri Oct 5", "Fixed appliances — Begg, Edgewise, MBT, brackets, wires", "Revision: Wire properties table"],
+      ["Sat Oct 6", "Space analysis, extractions in ortho, retention, relapse", "PYQs: Full Orthodontics · 50 Qs"],
+      ["Sun Oct 7", "MOCK TEST #16 — 240 Qs (3.5h)", "Benchmark score + correction plan"]
+    ]
+  },
+  17: {
+    title: "Week 17 — Dental Public Health + Forensic Odontology",
+    phase: "Phase 3 · Remaining Subjects",
+    days: [
+      ["Mon Oct 8", "Epidemiology — study designs, indices (DMFT, OHI-S, CPITN)", "PYQs: Indices 2017–2024 · 60 Qs"],
+      ["Tue Oct 9", "Preventive dentistry — fluoride, sealants, diet, oral hygiene", "Revision: Fluoride doses + effects table"],
+      ["Wed Oct 10", "National programs — NOHP, NHP, NPCBVI, Pradhan Mantri schemes", "PYQs: National programs · 50 Qs"],
+      ["Thu Oct 11", "Forensic odontology — identification, bite marks, age estimation", "PYQs: Forensics 2018–2024 · 40 Qs"],
+      ["Fri Oct 12", "Statistics — mean, SD, tests, null hypothesis, sampling", "PYQs: Statistics MCQs · 40 Qs"],
+      ["Sat Oct 13", "Full Phase 3 rapid revision — Perio + Pedo + Ortho + DPH", "One-liner sheets across all 4 subjects"],
+      ["Sun Oct 14", "MOCK TEST #17 — 240 Qs (ALL subjects first test)", "Grand syllabus coverage check"]
+    ]
+  },
+  18: {
+    title: "Week 18 — Grand Revision Round 1",
+    phase: "Phase 4 · Final Prep",
+    days: [
+      ["Mon Oct 15", "Rapid revision: Oral Anatomy + Histology (2h each)", "PYQ wrong Qs revisit — Anatomy"],
+      ["Tue Oct 16", "Rapid revision: Gen Pathology + Microbiology", "PYQ wrong Qs revisit — Gen Path"],
+      ["Wed Oct 17", "Rapid revision: Oral Pathology (full)", "PYQ 2024 paper — Oral Path section"],
+      ["Thu Oct 18", "Rapid revision: Oral Medicine + Radiology", "PYQ 2023 paper — Oral Med section"],
+      ["Fri Oct 19", "Rapid revision: Oral Surgery", "PYQ 2022 paper — Surgery section"],
+      ["Sat Oct 20", "Rapid revision: Conservative + Endo + Prostho", "PYQ 2021 paper — Prostho section"],
+      ["Sun Oct 21", "MOCK TEST #18 — 240 Qs (3.5h full paper)", "Score > 70%? Plan maintained. <70%? Subject-wise blitz."]
+    ]
+  },
+  19: {
+    title: "Week 19 — PYQ Marathon (2017–2024 Full Papers)",
+    phase: "Phase 4 · Final Prep",
+    days: [
+      ["Mon Oct 22", "NEET MDS 2017 full paper — 240 Qs timed", "Analysis: all wrong Qs source reading"],
+      ["Tue Oct 23", "NEET MDS 2018 full paper — 240 Qs timed", "Analysis: error log update"],
+      ["Wed Oct 24", "NEET MDS 2019 full paper — 240 Qs timed", "Analysis + flash card update"],
+      ["Thu Oct 25", "NEET MDS 2020 full paper — 240 Qs timed", "Analysis + weak subject identification"],
+      ["Fri Oct 26", "NEET MDS 2021 full paper — 240 Qs timed", "Analysis + rapid topic re-read"],
+      ["Sat Oct 27", "NEET MDS 2022 full paper — 240 Qs timed", "Analysis + one-liner update"],
+      ["Sun Oct 28", "MOCK TEST #19 — 240 Qs fresh mock (3.5h)", "Score analysis + identify remaining gaps"]
+    ]
+  },
+  20: {
+    title: "Week 20 — Final Week: Blitz + Consolidation",
+    phase: "Phase 4 · Final Prep",
+    days: [
+      ["Mon Oct 29", "NEET MDS 2023 full paper — 240 Qs timed", "Analysis + final error log"],
+      ["Tue Oct 30", "NEET MDS 2024 full paper — 240 Qs timed", "Analysis — highest priority wrong Qs"],
+      ["Wed Oct 31", "Weak subjects intensive blitz (as identified from mocks)", "Flash cards — entire collection review"],
+      ["Thu Nov 1", "High-yield one-liners — all subjects compiled list", "2h revision: most missed topics"],
+      ["Fri Nov 2", "Light revision — formulas, indices, drug doses, classification", "Rest + confidence boost: solve easy Qs"],
+      ["Sat Nov 3", "Final mock — 240 Qs (last full paper)", "Light review only. No new topics."],
+      ["Sun Nov 4+", "EXAM WEEK — Reach centre 1 day prior. Rest.", "Revise only your one-liner sheet. Trust the plan."]
+    ]
+  }
+};
+
+function showWeek(num) {
+  const w = weeks[num];
+  if (!w) return;
+  const el = document.getElementById('weekDetail');
+  el.innerHTML = `
+    <div style="margin-bottom:0.75rem;">
+      <div style="font-size:15px; font-weight:500; color:var(--color-text-primary);">${w.title}</div>
+      <div style="font-size:12px; color:var(--color-text-secondary); margin-top:2px;">${w.phase}</div>
+    </div>
+    ${w.days.map(([day, morn, eve]) => `
+      <div class="week-day-row">
+        <div class="day-name">${day}</div>
+        <div class="day-morn">${morn}</div>
+        <div class="day-eve">${eve}</div>
+      </div>
+    `).join('')}
+  `;
+}
+
+function showTab(id) {
+  document.querySelectorAll('.section').forEach(s => s.classList.remove('active'));
+  document.querySelectorAll('.tab').forEach(t => t.classList.remove('active'));
+  document.getElementById(id).classList.add('active');
+  event.target.classList.add('active');
+}
+
+showWeek(1);
+</script>
